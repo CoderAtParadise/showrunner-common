@@ -12,7 +12,7 @@ export interface RunsheetStorage extends Nested {
   team: Map<string, Role>;
 }
 
-export const json: IJson<RunsheetStorage> = {
+export const JSON: IJson<RunsheetStorage> = {
   serialize(value: RunsheetStorage): object {
     const obj: {
       version: number;
