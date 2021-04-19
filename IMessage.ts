@@ -15,7 +15,7 @@ export function registerHandler(type:string,handler:IHandler) : void
     handlers.set(type,handler);
 }
 
-const INVALID : IMessage = {
+export const INVALID : IMessage = {
     type: "invalid",
 }
 

@@ -1,6 +1,6 @@
 import IJson from "./IJson";
-import { ITrigger, handlers as thandlers } from "./ITrigger";
-import { IMessage, handlers as mhandlers } from "./IMessage";
+import { ITrigger, handlers as thandlers,INVALID as TINVALID } from "./ITrigger";
+import { IMessage, handlers as mhandlers, INVALID as MINVALID } from "./IMessage";
 
 export interface DirectionStorage {
   disabled: boolean;
@@ -30,8 +30,8 @@ export const JSON: IJson<DirectionStorage> = {
       return {
           disabled: value.disabled,
           targets: value.targets,
-          trigger: trigger,
-          message: message,
+          trigger: trigger || TINVALID,
+          message: message || MINVALID,
       }
   },
 };
