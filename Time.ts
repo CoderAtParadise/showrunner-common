@@ -99,7 +99,7 @@ export function stringify(point: Point): string {
   return `${point.relative}${zeroPad(point.hours, 2)}:${zeroPad(
     point.minutes,
     2
-  )}:${(point.seconds, 2)}`;
+  )}:${zeroPad(point.seconds, 2)}`;
 }
 
 export function parse(str: string): Point | RelativePoint {
