@@ -22,7 +22,7 @@ export interface Settings
     show : boolean;
 }
 
-export interface Tracking
+export interface Timer
 {
     start: Point;
     end: Point;
@@ -30,16 +30,16 @@ export interface Tracking
     overrun?: boolean;
 }
 
-export function current(tracking:Tracking) : Point {
-    if(greaterThan(now(),tracking.end))
+export function current(timer:Timer) : Point {
+    if(greaterThan(now(),timer.end))
     {
-        tracking.overrun = true;
-        return subtract(now(),tracking.start);
+        timer.overrun = true;
+        return subtract(now(),timer.start);
     }
-    return subtract(tracking.end,now());
+    return subtract(timer.end,now());
 }
 
-export function isAt(tracking:Tracking, time:Point) : boolean {
+export function isAt(tracking:Timer, time:Point) : boolean {
     return equals(current(tracking),time);
 }
 

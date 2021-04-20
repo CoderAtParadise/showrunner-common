@@ -1,4 +1,4 @@
-export default interface IJson<T,U = T> {
-    serialize: (value:U) => object;
+export default interface IJson<T> {
+    serialize: (value:T) => object;
     deserialize: (json:object) => T;
 }
