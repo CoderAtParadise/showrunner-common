@@ -41,9 +41,9 @@ export function copy(point: Point): Point {
 
 export function equals(lhs: Point, rhs: Point): boolean {
   return (
-    lhs.hours == rhs.hours &&
-    lhs.minutes == rhs.minutes &&
-    lhs.seconds == rhs.seconds
+    lhs.hours === rhs.hours &&
+    lhs.minutes === rhs.minutes &&
+    lhs.seconds === rhs.seconds
   );
 }
 
