@@ -20,8 +20,8 @@ export const JSON: IJson<BracketStorage> = {
       timer: TJSON.serialize(value.timer),
       items: [],
     };
-    value.nested.forEach((value: Storage) => {
-      let json = IJSON.serialize(value as ItemStorage);
+    value.nested.forEach((svalue: Storage) => {
+      let json = IJSON.serialize(svalue as ItemStorage);
       (json as {index: number}).index = (value as unknown as Nested).index.indexOf(value.tracking);
       obj.items.push(json);
     });
