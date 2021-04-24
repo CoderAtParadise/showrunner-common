@@ -37,7 +37,7 @@ export const JSON: IJson<RunsheetStorage> = {
     value.nested.forEach((value: Storage) =>
     {
       let json = SJSON.serialize(value as SessionStorage);
-      json['index'] = (value as unknown as Nested).index.indexOf(value.tracking);
+      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(value.tracking);
       obj.sessions.push(json);
     });
     return obj;

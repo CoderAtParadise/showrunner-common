@@ -1,4 +1,5 @@
-import { Settings } from "./Timer";
+import { Settings,Behaviour,Display } from "./Timer";
+import {INVALID as INVALID_POINT} from "./Time";
 
 export enum Type {
   SESSION = "session",
@@ -12,6 +13,20 @@ export interface Storage {
   display: string;
   disabled: boolean;
   timer: Settings;
+}
+
+const INVALID: Storage =
+{
+  tracking: "",
+  type: Type.SESSION,
+  display: "Invalid",
+  disabled: true,
+  timer: {
+    duration : INVALID_POINT,
+    behaviour : Behaviour.HIDE,
+    display : Display.ELAPSED,
+    show : false,
+  }
 }
 
 export interface Nested {
@@ -58,7 +73,7 @@ export function move(
       add(target, value, tindex);
       return remove(source, sid);
     } else {
-      target.index.splice(tindex, 0, this.splice(source.index.indexOf(sid), 1)); //simple way to do if source == target
+      target.index.splice(tindex, 0, target.index.splice(source.index.indexOf(sid), 1)[0]); //simple way to do if source == target
       return true;
     }
   }

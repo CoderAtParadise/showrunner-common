@@ -21,6 +21,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: boolean;
       timer: {};
       brackets: object[];
+      index:number;
     } = {
       tracking: value.tracking,
       start: [],
@@ -29,11 +30,12 @@ export const JSON: IJson<SessionStorage> = {
       disabled: value.disabled || false,
       timer: TJSON.serialize(value.timer),
       brackets: [],
+      index: -1,
     };
     value.start.forEach((value: Point) => obj.start.push(stringify(value)));
     value.nested.forEach((value: Storage) =>{
       let json = BJSON.serialize(value as BracketStorage);
-      json['index'] = (value as unknown as Nested).index.indexOf(value.tracking);
+      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(value.tracking);
       obj.brackets.push(json);
     });
     return obj;
@@ -48,6 +50,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: boolean;
       timer: {};
       brackets: object[];
+      index: number;
     };
     const start: Point[] = [];
     const brackets: Map<string,BracketStorage> = new Map<string,BracketStorage>();
