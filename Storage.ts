@@ -58,7 +58,7 @@ export function remove(list: Nested, id: string): boolean {
 }
 
 export function get(list: Nested, sid: string): Storage {
-  return list.nested[sid];
+  return list.nested.get(sid) || INVALID;
 }
 
 export function move(
