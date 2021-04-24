@@ -12,6 +12,14 @@ export interface RunsheetStorage extends Nested {
   team: Map<string, Role>;
 }
 
+export const INVALID: RunsheetStorage = {
+  version: -1,
+  team: new Map<string, Role>(),
+  nestedType: Type.SESSION,
+  nested: new Map<string,SessionStorage>(),
+  index : [],
+};
+
 export const JSON: IJson<RunsheetStorage> = {
   serialize(value: RunsheetStorage): object {
     const obj: {
@@ -27,8 +35,11 @@ export const JSON: IJson<RunsheetStorage> = {
       obj.team.push({ key: key, role: value.role, display: value.display })
     );
     value.nested.forEach((value: Storage) =>
-      obj.sessions.push(SJSON.serialize(value as SessionStorage))
-    );
+    {
+      let json = SJSON.serialize(value as SessionStorage);
+      json['index'] = (value as unknown as Nested).index.indexOf(value.tracking);
+      obj.sessions.push(json);
+    });
     return obj;
   },
 
@@ -37,20 +48,26 @@ export const JSON: IJson<RunsheetStorage> = {
       version: number;
       team: { key: string; role: string; display: string }[];
       sessions: object[];
+      index: string[];
     };
-    const sessions: Storage[] = [];
+    const sessions: Map<string,SessionStorage> = new Map<string,SessionStorage>();
     const team: Map<string, Role> = new Map<string, Role>();
+    const index: string[] = [];
     value.team.forEach((json: { key: string; role: string; display: string }) =>
       team.set(json.key, { role: json.role, display: json.display })
     );
     value.sessions.forEach((json: object) =>
-      sessions.push(SJSON.deserialize(json))
-    );
+    {
+      let session = SJSON.deserialize(json);
+      index[(json as {index: number}).index] = session.tracking;
+      sessions.set(session.tracking,session);
+    });
     return {
       version: value.version,
       team: team,
       nestedType: Type.SESSION,
       nested: sessions,
+      index: index,
     };
   },
 };

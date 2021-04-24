@@ -31,9 +31,11 @@ export const JSON: IJson<SessionStorage> = {
       brackets: [],
     };
     value.start.forEach((value: Point) => obj.start.push(stringify(value)));
-    value.nested.forEach((value: Storage) =>
-      obj.brackets.push(BJSON.serialize(value as BracketStorage))
-    );
+    value.nested.forEach((value: Storage) =>{
+      let json = BJSON.serialize(value as BracketStorage);
+      json['index'] = (value as unknown as Nested).index.indexOf(value.tracking);
+      obj.brackets.push(json);
+    });
     return obj;
   },
 
@@ -48,10 +50,14 @@ export const JSON: IJson<SessionStorage> = {
       brackets: object[];
     };
     const start: Point[] = [];
-    const brackets: Storage[] = [];
+    const brackets: Map<string,BracketStorage> = new Map<string,BracketStorage>();
+    const index: string[] = [];
     value.brackets.forEach((json: object) =>
-      brackets.push(BJSON.deserialize(json))
-    );
+    {
+      let bracket = BJSON.deserialize(json);
+      index[(json as {index: number}).index] = bracket.tracking;
+      brackets.set(bracket.tracking,bracket);
+    });
     value.start.forEach((json: string) => start.push(parse(json)));
     return {
       tracking: value.tracking,
@@ -63,6 +69,7 @@ export const JSON: IJson<SessionStorage> = {
       timer: TJSON.deserialize(value.timer),
       nestedType: Type.BRACKET,
       nested: brackets,
+      index: index,
     };
   },
 };

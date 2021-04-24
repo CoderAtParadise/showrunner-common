@@ -20,9 +20,13 @@ export const JSON: IJson<BracketStorage> = {
       timer: TJSON.serialize(value.timer),
       items: [],
     };
-    value.nested.forEach((value: Storage) =>
-      obj.items.push(IJSON.serialize(value as ItemStorage))
-    );
+    value.nested.forEach((value: Storage) => {
+      let json = IJSON.serialize(value as ItemStorage);
+      json["index"] = ((value as unknown) as Nested).index.indexOf(
+        value.tracking
+      );
+      obj.items.push(json);
+    });
     return obj;
   },
 
@@ -34,8 +38,13 @@ export const JSON: IJson<BracketStorage> = {
       timer: {};
       items: object[];
     };
-    const items: Storage[] = [];
-    value.items.forEach((json: object) => items.push(IJSON.deserialize(json)));
+    const items: Map<string, ItemStorage> = new Map<string, ItemStorage>();
+    const index: string[] = [];
+    value.items.forEach((json: object) => {
+      const item = IJSON.deserialize(json);
+      index[(json as {index: number}).index] = item.tracking;
+      items.set(item.tracking,item);
+    });
     return {
       tracking: value.tracking,
       type: Type.BRACKET,
@@ -44,6 +53,7 @@ export const JSON: IJson<BracketStorage> = {
       timer: TJSON.deserialize(value.timer),
       nestedType: Type.ITEM,
       nested: items,
+      index:index,
     };
   },
 };

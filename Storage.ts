@@ -16,41 +16,51 @@ export interface Storage {
 
 export interface Nested {
   nestedType: Type;
-  nested: Storage[];
+  nested: Map<string, Storage>;
+  index: string[];
 }
 
-function canStore(list:Nested,value:Storage): boolean
-{
-    return list.nestedType === value.type;
+function canStore(list: Nested, value: Storage): boolean {
+  return list.nestedType === value.type;
 }
 
-export function add(list:Nested,value:Storage,index: number = list.nested.length) : boolean
-{
-    if(index > list.nested.length) index = list.nested.length;
-    if(canStore(list,value)) {
-        list.nested.splice(index,0,value);
-        return true;
-    }
-    return false;
-}
-
-export function remove(list: Nested, index: number): boolean {
-    if (index >= list.nested.length) return false;
-    list.nested.splice(index, 1);
+export function add(
+  list: Nested,
+  value: Storage,
+  index: number = list.index.length
+): boolean {
+  if (canStore(list, value)) {
+    list.nested.set(value.tracking, value);
+    list.index.splice(index, 0, value.tracking);
     return true;
+  }
+  return false;
 }
 
-export function get(list: Nested, index: number): Storage {
-    return list.nested[index];
-  }
+export function remove(list: Nested, id: string): boolean {
+  list.index.splice(list.index.indexOf(id), 1);
+  return list.nested.delete(id);
+}
 
-export function move(source:Nested,sindex: number,target:Nested,tindex:number) : boolean
-{
-    const value = get(source,sindex);
-    if(value && canStore(target,value)) {
-        add(target,value,tindex);
-        remove(source,sindex);
-        return true;
+export function get(list: Nested, sid: string): Storage {
+  return list.nested[sid];
+}
+
+export function move(
+  source: Nested,
+  sid: string,
+  target: Nested,
+  tindex: number
+): boolean {
+  const value = get(source, sid);
+  if (value && canStore(target, value)) {
+    if (!target.nested.has(sid)) {
+      add(target, value, tindex);
+      return remove(source, sid);
+    } else {
+      target.index.splice(tindex, 0, this.splice(source.index.indexOf(sid), 1)); //simple way to do if source == target
+      return true;
     }
-    return false
+  }
+  return false;
 }
