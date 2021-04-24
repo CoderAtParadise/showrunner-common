@@ -22,7 +22,7 @@ export const JSON: IJson<BracketStorage> = {
     };
     value.nested.forEach((svalue: Storage) => {
       let json = IJSON.serialize(svalue as ItemStorage);
-      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(value.tracking);
+      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(svalue.tracking);
       obj.items.push(json);
     });
     return obj;

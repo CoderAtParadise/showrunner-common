@@ -35,7 +35,7 @@ export const JSON: IJson<SessionStorage> = {
     value.start.forEach((value: Point) => obj.start.push(stringify(value)));
     value.nested.forEach((svalue: Storage) =>{
       let json = BJSON.serialize(svalue as BracketStorage);
-      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(value.tracking);
+      (json as {index: number}).index = (value as unknown as Nested).index.indexOf(svalue.tracking);
       obj.brackets.push(json);
     });
     return obj;
