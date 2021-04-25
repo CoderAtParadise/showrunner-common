@@ -5,7 +5,7 @@ import { JSON as TJSON } from "./Timer";
 import { Point, stringify, parse } from "./Time";
 
 export interface SessionData {
-  start: Point[];
+  start: {session_id: string, time:Point}[];
   save: boolean;
 }
 
@@ -15,7 +15,7 @@ export const JSON: IJson<SessionStorage> = {
   serialize(value: SessionStorage): object {
     const obj: {
       tracking: string;
-      start: string[];
+      start: {session_id: string,time:string}[];
       save_tracking: boolean;
       display: string;
       disabled: boolean;
@@ -32,7 +32,7 @@ export const JSON: IJson<SessionStorage> = {
       brackets: [],
       index: -1,
     };
-    value.start.forEach((value: Point) => obj.start.push(stringify(value)));
+    value.start.forEach((value: {session_id: string,time:Point}) => obj.start.push({session_id: value.session_id,time:stringify(value.time)}));
     value.nested.forEach((svalue: Storage) =>{
       let json = BJSON.serialize(svalue as BracketStorage);
       (json as {index: number}).index = (value as unknown as Nested).index.indexOf(svalue.tracking);
@@ -44,7 +44,7 @@ export const JSON: IJson<SessionStorage> = {
   deserialize(json: object): SessionStorage {
     const value = json as {
       tracking: string;
-      start: string[];
+      start: {session_id: string,time:string}[];
       save_tracking: boolean;
       display: string;
       disabled: boolean;
@@ -52,7 +52,7 @@ export const JSON: IJson<SessionStorage> = {
       brackets: object[];
       index: number;
     };
-    const start: Point[] = [];
+    const start: {session_id:string,time:Point}[] = [];
     const brackets: Map<string,BracketStorage> = new Map<string,BracketStorage>();
     const index: string[] = [];
     value.brackets.forEach((json: object) =>
@@ -61,7 +61,7 @@ export const JSON: IJson<SessionStorage> = {
       index[(json as {index: number}).index] = bracket.tracking;
       brackets.set(bracket.tracking,bracket);
     });
-    value.start.forEach((json: string) => start.push(parse(json)));
+    value.start.forEach((json: {session_id: string,time:string}) => start.push({session_id: json.session_id,time:parse(json.time)}));
     return {
       tracking: value.tracking,
       start: start,

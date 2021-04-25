@@ -1,7 +1,23 @@
 import { Settings, Timer, JSON as SJSON } from "./Timer";
-import { INVALID as INVALID_POINT, add, now, stringify, parse } from "./Time";
+import {
+  INVALID as INVALID_POINT,
+  add,
+  now,
+  stringify,
+  parse,
+  Point,
+} from "./Time";
 import IJson from "./IJson";
 import { Storage } from "./Storage";
+
+export interface TrackingSession {
+  session_id: string;
+  tracking_id: string;
+  trackers: Map<string, Tracker>;
+  settings: Settings;
+  startTime: Point;
+  timer: Timer;
+}
 
 export interface Tracker {
   tracking_id: string;
@@ -11,10 +27,10 @@ export interface Tracker {
   index: number;
 }
 
-export function buildTracking(parent:string,storage: Storage): Tracker {
+export function buildTracking(parent: string, storage: Storage): Tracker {
   return {
     tracking_id: storage.tracking,
-    parent:parent,
+    parent: parent,
     settings: storage.timer,
     timers: [],
     index: -1,
@@ -38,24 +54,64 @@ export function end(tracker: Tracker, location: Location): void {
   tracker.timers[tracker.index].end = now();
 }
 
-export const JSON: IJson<Map<string, Tracker>> = {
-  serialize(value: Map<string, Tracker>): object {
-    const obj: object[] = [];
-    value.forEach((value: Tracker) => obj.push(TRACKER_JSON.serialize(value)));
+export const SESSION_JSON: IJson<TrackingSession> = {
+  serialize(value: TrackingSession): object {
+    const obj: {
+      tracking_id: string;
+      session_id: string;
+      trackers: object[];
+      settings: object;
+      timer: { start: string; end: string; overrun: boolean; show: boolean };
+      startTime: string;
+    } = {
+      tracking_id: value.tracking_id,
+      session_id: value.session_id,
+      trackers: [],
+      settings: SJSON.serialize(value.settings),
+      timer: {
+        start: stringify(value.timer.start),
+        end: stringify(value.timer.end),
+        overrun: value.timer.overrun,
+        show: value.timer.show,
+      },
+      startTime: stringify(value.startTime),
+    };
+    value.trackers.forEach((value: Tracker) =>
+      obj.trackers.push(TRACKER_JSON.serialize(value))
+    );
     return obj;
   },
-  deserialize(json: object): Map<string, Tracker> {
-    const tracker_list: Map<string, Tracker> = new Map<string, Tracker>();
-    const value = json as object[];
-    value.forEach((value: object) => {
+  deserialize(json: object): TrackingSession {
+    const value = json as {
+      tracking_id: string;
+      session_id: string;
+      settings: object;
+      trackers: object[];
+      timer: { start: string; end: string; overrun: boolean; show: boolean };
+      startTime: string;
+    };
+    const trackers: Map<string, Tracker> = new Map<string, Tracker>();
+    value.trackers.forEach((value: object) => {
       const tracker = TRACKER_JSON.deserialize(value);
-      tracker_list.set(tracker.tracking_id, tracker);
+      trackers.set(tracker.tracking_id, tracker);
     });
-    return tracker_list;
+    return {
+      tracking_id: value.tracking_id,
+      session_id: value.session_id,
+      trackers: trackers,
+      settings: SJSON.deserialize(value.settings),
+      timer: {
+        start: parse(value.timer.start),
+        end: parse(value.timer.end),
+        overrun: value.timer.overrun,
+        show: value.timer.show,
+      },
+      startTime: parse(value.startTime),
+    };
   },
 };
 
-const TRACKER_JSON: IJson<Tracker> = {
+export const TRACKER_JSON: IJson<Tracker> = {
   serialize(value: Tracker): object {
     const obj: {
       tracking_id: string;
