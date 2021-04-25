@@ -5,14 +5,16 @@ import { Storage } from "./Storage";
 
 export interface Tracker {
   tracking_id: string;
+  parent: string;
   settings: Settings;
   timers: Timer[];
   index: number;
 }
 
-export function buildTracking(storage: Storage): Tracker {
+export function buildTracking(parent:string,storage: Storage): Tracker {
   return {
     tracking_id: storage.tracking,
+    parent:parent,
     settings: storage.timer,
     timers: [],
     index: -1,
@@ -57,11 +59,13 @@ const TRACKER_JSON: IJson<Tracker> = {
   serialize(value: Tracker): object {
     const obj: {
       tracking_id: string;
+      parent: string;
       settings: object;
       timers: { start: string; end: string; show: boolean }[];
       index: number;
     } = {
       tracking_id: value.tracking_id,
+      parent: value.parent,
       settings: SJSON.serialize(value.settings),
       timers: [],
       index: value.index,
@@ -78,6 +82,7 @@ const TRACKER_JSON: IJson<Tracker> = {
   deserialize(json: object): Tracker {
     const value = json as {
       tracking_id: string;
+      parent: string;
       settings: object;
       timers: { start: string; end: string; show: boolean }[];
       index: number;
@@ -93,6 +98,7 @@ const TRACKER_JSON: IJson<Tracker> = {
     );
     return {
       tracking_id: value.tracking_id,
+      parent: value.parent,
       settings: SJSON.deserialize(value.settings),
       timers: timers,
       index: value.index,
