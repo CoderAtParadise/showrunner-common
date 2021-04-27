@@ -38,13 +38,13 @@ function buildTracking(parent: string, storage: Storage): Tracker {
   };
 }
 
-export function buildTrackingSession(session_info: {session_id:string,time:string},storage:SessionStorage)
+export function buildTrackingSession(session_info: {session_id:string,time:Point},storage:SessionStorage)
 {
   const session: TrackingSession = {
     tracking_id: storage.tracking,
     session_id: session_info.session_id,
     trackers: new Map<string,Tracker>(),
-    startTime: parse(session_info.time),
+    startTime: session_info.time,
     settings: storage.timer,
     timer: {
       start: INVALID_POINT,
