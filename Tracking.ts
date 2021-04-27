@@ -78,7 +78,7 @@ export function start(tracker: Tracker): void {
   timer.end = add(now(), tracker.settings.duration);
 }
 
-export function end(tracker: Tracker, location: Location): void {
+export function end(tracker: Tracker): void {
   tracker.timers[tracker.index].end = now();
 }
 
