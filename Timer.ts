@@ -27,7 +27,7 @@ export interface Timer
     start: Point;
     end: Point;
     show: boolean;
-    overrun?: boolean;
+    overrun: boolean;
 }
 
 export function current(timer:Timer) : Point {

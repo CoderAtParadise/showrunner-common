@@ -8,7 +8,8 @@ import {
   Point,
 } from "./Time";
 import IJson from "./IJson";
-import { Storage } from "./Storage";
+import { Nested, Storage } from "./Storage";
+import {SessionStorage} from "./Session";
 
 export interface TrackingSession {
   session_id: string;
@@ -27,7 +28,7 @@ export interface Tracker {
   index: number;
 }
 
-export function buildTracking(parent: string, storage: Storage): Tracker {
+function buildTracking(parent: string, storage: Storage): Tracker {
   return {
     tracking_id: storage.tracking,
     parent: parent,
@@ -37,6 +38,32 @@ export function buildTracking(parent: string, storage: Storage): Tracker {
   };
 }
 
+export function buildTrackingSession(session_info: {session_id:string,time:string},storage:SessionStorage)
+{
+  const session: TrackingSession = {
+    tracking_id: storage.tracking,
+    session_id: session_info.session_id,
+    trackers: new Map<string,Tracker>(),
+    startTime: parse(session_info.time),
+    settings: storage.timer,
+    timer: {
+      start: INVALID_POINT,
+      end: INVALID_POINT,
+      show: storage.timer.show,
+      overrun: false
+    }
+  }
+  storage.nested.forEach((value:Storage) => {
+    const bracket = buildTracking(storage.tracking,value);
+    session.trackers.set(bracket.tracking_id,bracket);
+    (value as unknown as Nested).nested.forEach((ivalue:Storage) => {
+        const item = buildTracking(bracket.tracking_id,ivalue);
+        session.trackers.set(item.tracking_id,item);
+    });
+  });
+  return session;
+}
+
 export function start(tracker: Tracker): void {
   tracker.index++;
   if (tracker.index >= tracker.timers.length)
@@ -44,6 +71,7 @@ export function start(tracker: Tracker): void {
       start: INVALID_POINT,
       end: INVALID_POINT,
       show: tracker.settings.show,
+      overrun: false
     });
   const timer: Timer = tracker.timers[tracker.index];
   timer.start = now();
@@ -150,6 +178,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
           start: parse(value.start),
           end: parse(value.end),
           show: value.show,
+          overrun: false,
         })
     );
     return {
