@@ -2,6 +2,7 @@ import { Settings,Behaviour,Display } from "./Timer";
 import {INVALID as INVALID_POINT} from "./Time";
 
 export enum Type {
+  NVALID = "invalid",
   SESSION = "session",
   BRACKET = "bracket",
   ITEM = "item",
