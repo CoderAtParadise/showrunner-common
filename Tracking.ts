@@ -145,7 +145,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
       tracking_id: string;
       parent: string;
       settings: object;
-      timers: { start: string; end: string; show: boolean }[];
+      timers: { start: string; end: string; show: boolean; overrun: boolean; }[];
       index: number;
     } = {
       tracking_id: value.tracking_id,
@@ -159,6 +159,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
         start: stringify(value.start),
         end: stringify(value.end),
         show: value.show,
+        overrun: value.overrun,
       })
     );
     return obj;
