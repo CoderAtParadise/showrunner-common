@@ -169,17 +169,17 @@ export const TRACKER_JSON: IJson<Tracker> = {
       tracking_id: string;
       parent: string;
       settings: object;
-      timers: { start: string; end: string; show: boolean }[];
+      timers: { start: string; end: string; show: boolean; overrun: boolean; }[];
       index: number;
     };
     const timers: Timer[] = [];
     value.timers.forEach(
-      (value: { start: string; end: string; show: boolean }) =>
+      (value: { start: string; end: string; show: boolean; overrun: boolean; }) =>
         timers.push({
           start: parse(value.start),
           end: parse(value.end),
           show: value.show,
-          overrun: false,
+          overrun: value.overrun,
         })
     );
     return {
