@@ -16,7 +16,7 @@ export interface Storage {
   timer: Settings;
 }
 
-const INVALID: Storage =
+export const INVALID: Storage =
 {
   tracking: "",
   type: Type.SESSION,
