@@ -19,7 +19,7 @@ export interface Storage {
 export const INVALID: Storage =
 {
   tracking: "",
-  type: Type.SESSION,
+  type: Type.INVALID,
   display: "Invalid",
   disabled: true,
   timer: {
