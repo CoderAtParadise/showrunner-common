@@ -11,7 +11,9 @@ export interface Point {
   readonly relative: Relative;
 }
 
-export interface RelativePoint extends Point {}
+export interface MRelativePoint extends Point {
+  relative: Relative;
+}
 
 export const INVALID: Point = {
   hours: -1,
@@ -102,7 +104,7 @@ export function stringify(point: Point): string {
   )}:${zeroPad(point.seconds, 2)}`;
 }
 
-export function parse(str: string): Point | RelativePoint {
+export function parse(str: string): Point {
   if (str === "--:--:--") return INVALID;
   let relative: Relative;
   if (str.charAt(0) === Relative.START || str.charAt(0) === Relative.END) {
