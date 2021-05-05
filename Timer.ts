@@ -45,7 +45,7 @@ export function isAt(tracking:Timer, time:Point) : boolean {
 
 export const JSON : IJson<Settings> = {
     serialize(value: Settings): object {
-        return {display: value.display as string, Behaviour: value.behaviour as string, duration: stringify(value.duration),show: value.show};
+        return {display: value.display as string, behaviour: value.behaviour as string, duration: stringify(value.duration),show: value.show};
     },
 
     deserialize(json:object): Settings {
