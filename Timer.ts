@@ -3,10 +3,6 @@ import {
   Point,
   stringify,
   parse,
-  greaterThan,
-  subtract,
-  equals,
-  now,
 } from "./Time";
 
 export enum Behaviour {

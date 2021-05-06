@@ -1,4 +1,4 @@
-import { Settings, Timer, JSON as SJSON } from "./Timer";
+import { Settings, Timer, JSON as SJSON, TimerState,TIMER_JSON as TJSON } from "./Timer";
 import {
   INVALID as INVALID_POINT,
   add,
@@ -49,8 +49,7 @@ export function buildTrackingSession(session_info: {session_id:string,time:Point
     timer: {
       start: INVALID_POINT,
       end: INVALID_POINT,
-      show: storage.timer.show,
-      overrun: false
+      state: TimerState.STOPPED,
     }
   }
   storage.nested.forEach((value:Storage) => {
@@ -70,16 +69,17 @@ export function start(tracker: Tracker): void {
     tracker.timers.push({
       start: INVALID_POINT,
       end: INVALID_POINT,
-      show: tracker.settings.show,
-      overrun: false
+      state: TimerState.STOPPED,
     });
   const timer: Timer = tracker.timers[tracker.index];
   timer.start = now();
   timer.end = add(now(), tracker.settings.duration);
+  timer.state = TimerState.RUNNING;
 }
 
 export function end(tracker: Tracker): void {
   tracker.timers[tracker.index].end = now();
+  tracker.timers[tracker.index].state = TimerState.STOPPED;
 }
 
 export const SESSION_JSON: IJson<TrackingSession> = {
@@ -89,19 +89,14 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       session_id: string;
       trackers: object[];
       settings: object;
-      timer: { start: string; end: string; overrun: boolean; show: boolean };
+      timer: object;
       startTime: string;
     } = {
       tracking_id: value.tracking_id,
       session_id: value.session_id,
       trackers: [],
       settings: SJSON.serialize(value.settings),
-      timer: {
-        start: stringify(value.timer.start),
-        end: stringify(value.timer.end),
-        overrun: value.timer.overrun,
-        show: value.timer.show,
-      },
+      timer: TJSON.serialize(value.timer),
       startTime: stringify(value.startTime),
     };
     value.trackers.forEach((value: Tracker) =>
@@ -115,7 +110,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       session_id: string;
       settings: object;
       trackers: object[];
-      timer: { start: string; end: string; overrun: boolean; show: boolean };
+      timer: object;
       startTime: string;
     };
     const trackers: Map<string, Tracker> = new Map<string, Tracker>();
@@ -128,12 +123,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       session_id: value.session_id,
       trackers: trackers,
       settings: SJSON.deserialize(value.settings),
-      timer: {
-        start: parse(value.timer.start),
-        end: parse(value.timer.end),
-        overrun: value.timer.overrun,
-        show: value.timer.show,
-      },
+      timer: TJSON.deserialize(value.timer),
       startTime: parse(value.startTime),
     };
   },
@@ -145,7 +135,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
       tracking_id: string;
       parent: string;
       settings: object;
-      timers: { start: string; end: string; show: boolean; overrun: boolean; }[];
+      timers: object[];
       index: number;
     } = {
       tracking_id: value.tracking_id,
@@ -155,12 +145,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
       index: value.index,
     };
     value.timers.forEach((value: Timer) =>
-      obj.timers.push({
-        start: stringify(value.start),
-        end: stringify(value.end),
-        show: value.show,
-        overrun: value.overrun,
-      })
+      obj.timers.push(TJSON.serialize(value))
     );
     return obj;
   },
@@ -169,18 +154,13 @@ export const TRACKER_JSON: IJson<Tracker> = {
       tracking_id: string;
       parent: string;
       settings: object;
-      timers: { start: string; end: string; show: boolean; overrun: boolean; }[];
+      timers: object[];
       index: number;
     };
     const timers: Timer[] = [];
     value.timers.forEach(
-      (value: { start: string; end: string; show: boolean; overrun: boolean; }) =>
-        timers.push({
-          start: parse(value.start),
-          end: parse(value.end),
-          show: value.show,
-          overrun: value.overrun,
-        })
+      (value: object) =>
+        timers.push(TJSON.deserialize(value))
     );
     return {
       tracking_id: value.tracking_id,
