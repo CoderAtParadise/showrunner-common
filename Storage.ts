@@ -1,5 +1,6 @@
 import { Settings,Behaviour,Display } from "./Timer";
 import {INVALID as INVALID_POINT} from "./Time";
+import {DirectionStorage} from "./Direction";
 
 export enum Type {
   INVALID = "invalid",
@@ -13,6 +14,7 @@ export interface Storage {
   type: Type;
   display: string;
   disabled: boolean;
+  directions: DirectionStorage[];
   timer: Settings;
 }
 
@@ -20,8 +22,9 @@ export const INVALID: Storage =
 {
   tracking: "",
   type: Type.INVALID,
-  display: "Invalid",
+  display: "",
   disabled: true,
+  directions: [],
   timer: {
     duration : INVALID_POINT,
     behaviour : Behaviour.HIDE,

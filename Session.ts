@@ -3,6 +3,7 @@ import { Nested, Storage, Type } from "./Storage";
 import { BracketStorage, JSON as BJSON } from "./Bracket";
 import { JSON as TJSON } from "./Timer";
 import { Point, stringify, parse } from "./Time";
+import { DirectionStorage,JSON as DJSON } from "./Direction";
 
 export interface SessionData {
   start: {session_id: string, time:Point}[];
@@ -21,6 +22,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: boolean;
       timer: {};
       brackets: object[];
+      directions: object[];
       index:number;
     } = {
       tracking: value.tracking,
@@ -30,8 +32,12 @@ export const JSON: IJson<SessionStorage> = {
       disabled: value.disabled || false,
       timer: TJSON.serialize(value.timer),
       brackets: [],
+      directions: [],
       index: -1,
     };
+    value.directions.forEach((value: DirectionStorage) => {
+      obj.directions.push(DJSON.serialize(value));
+    });
     value.start.forEach((value: {session_id: string,time:Point}) => obj.start.push({session_id: value.session_id,time:stringify(value.time)}));
     value.nested.forEach((svalue: Storage) =>{
       let json = BJSON.serialize(svalue as BracketStorage);
@@ -50,6 +56,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: boolean;
       timer: {};
       brackets: object[];
+      directions: object[];
       index: number;
     };
     const start: {session_id:string,time:Point}[] = [];
@@ -62,6 +69,10 @@ export const JSON: IJson<SessionStorage> = {
       brackets.set(bracket.tracking,bracket);
     });
     value.start.forEach((json: {session_id: string,time:string}) => start.push({session_id: json.session_id,time:parse(json.time)}));
+    const directions: DirectionStorage[] = [];
+    value.directions.forEach((json: object) =>
+      directions.push(DJSON.deserialize(json))
+    );
     return {
       tracking: value.tracking,
       start: start,
@@ -71,6 +82,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: value.disabled,
       timer: TJSON.deserialize(value.timer),
       nestedType: Type.BRACKET,
+      directions: directions,
       nested: brackets,
       index: index,
     };

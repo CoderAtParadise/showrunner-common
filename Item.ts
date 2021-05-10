@@ -4,7 +4,6 @@ import { DirectionStorage, JSON as DJSON } from "./Direction";
 import { JSON as TJSON } from "./Timer";
 
 export interface ItemStorage extends Storage {
-  directions: DirectionStorage[];
 }
 
 export const JSON: IJson<ItemStorage> = {
