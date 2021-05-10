@@ -18,7 +18,7 @@ export interface Storage {
   timer: Settings;
 }
 
-export const INVALID: Storage =
+export const INVALID: Storage & Nested =
 {
   tracking: "",
   type: Type.INVALID,
@@ -30,7 +30,10 @@ export const INVALID: Storage =
     behaviour : Behaviour.HIDE,
     display : Display.ELAPSED,
     show : false,
-  }
+  },
+  nestedType: Type.INVALID,
+  nested: new Map<string,Storage>(),
+  index: []
 }
 
 export interface Nested {
