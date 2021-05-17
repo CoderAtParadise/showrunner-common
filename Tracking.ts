@@ -6,7 +6,6 @@ import {
   stringify,
   parse,
   Point,
-  INVALID,
 } from "./Time";
 import IJson from "./IJson";
 import { Nested, Storage } from "./Storage";
