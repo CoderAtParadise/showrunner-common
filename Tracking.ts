@@ -27,7 +27,6 @@ export interface Tracker {
   settings: Settings;
   timers: Timer[];
   index: number;
-  disabled: boolean;
 }
 
 export const INVALID_TRACKER: Tracker = {
@@ -47,7 +46,6 @@ export const INVALID_TRACKER: Tracker = {
     }
   ],
   index: 0,
-  disabled: true
 }
 
 export const INVALID_SESSION: TrackingSession = {
@@ -76,7 +74,6 @@ function buildTracking(parent: string, storage: Storage): Tracker {
     settings: storage.timer,
     timers: [],
     index: -1,
-    disabled: storage.disabled,
   };
 }
 
@@ -184,14 +181,12 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: object;
       timers: object[];
       index: number;
-      disabled: boolean;
     } = {
       tracking_id: value.tracking_id,
       parent: value.parent,
       settings: SJSON.serialize(value.settings),
       timers: [],
       index: value.index,
-      disabled: value.disabled,
     };
     value.timers.forEach((value: Timer) =>
       obj.timers.push(TJSON.serialize(value))
@@ -205,7 +200,6 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: object;
       timers: object[];
       index: number;
-      disabled: boolean;
     };
     const timers: Timer[] = [];
     value.timers.forEach(
@@ -218,7 +212,6 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: SJSON.deserialize(value.settings),
       timers: timers,
       index: value.index,
-      disabled: value.disabled,
     };
   },
 };
