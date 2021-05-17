@@ -6,6 +6,7 @@ import {
   stringify,
   parse,
   Point,
+  INVALID,
 } from "./Time";
 import IJson from "./IJson";
 import { Nested, Storage } from "./Storage";
@@ -37,8 +38,14 @@ export const INVALID_TRACKER: Tracker = {
     display: Display.ELAPSED,
     show: false,
   },
-  timers: [],
-  index: -1
+  timers: [
+    {
+      start:INVALID_POINT,
+      end: INVALID_POINT,
+      state: TimerState.HIDDEN
+    }
+  ],
+  index: 0
 }
 
 export const INVALID_SESSION: TrackingSession = {
