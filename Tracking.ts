@@ -18,6 +18,7 @@ export interface TrackingSession {
   settings: Settings;
   startTime: Point;
   timer: Timer;
+  disabled: boolean;
 }
 
 export interface Tracker {
@@ -26,6 +27,7 @@ export interface Tracker {
   settings: Settings;
   timers: Timer[];
   index: number;
+  disabled: boolean;
 }
 
 export const INVALID_TRACKER: Tracker = {
@@ -44,7 +46,8 @@ export const INVALID_TRACKER: Tracker = {
       state: TimerState.HIDDEN
     }
   ],
-  index: 0
+  index: 0,
+  disabled: true
 }
 
 export const INVALID_SESSION: TrackingSession = {
@@ -62,7 +65,8 @@ export const INVALID_SESSION: TrackingSession = {
     start: INVALID_POINT,
     end: INVALID_POINT,
     state: TimerState.HIDDEN
-  }
+  },
+  disabled: true
 }
 
 function buildTracking(parent: string, storage: Storage): Tracker {
@@ -72,10 +76,11 @@ function buildTracking(parent: string, storage: Storage): Tracker {
     settings: storage.timer,
     timers: [],
     index: -1,
+    disabled: storage.disabled,
   };
 }
 
-export function buildTrackingSession(session_info: {session_id:string,time:Point},storage:SessionStorage)
+export function buildTrackingSession(session_info: {session_id:string,time:Point,disabled:boolean},storage:SessionStorage)
 {
   const session: TrackingSession = {
     tracking_id: storage.tracking,
@@ -87,7 +92,8 @@ export function buildTrackingSession(session_info: {session_id:string,time:Point
       start: INVALID_POINT,
       end: INVALID_POINT,
       state: TimerState.STOPPED,
-    }
+    },
+    disabled: session_info.disabled,
   }
   storage.nested.forEach((value:Storage) => {
     const bracket = buildTracking(storage.tracking,value);
@@ -128,6 +134,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       settings: object;
       timer: object;
       startTime: string;
+      disabled: boolean;
     } = {
       tracking_id: value.tracking_id,
       session_id: value.session_id,
@@ -135,6 +142,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       settings: SJSON.serialize(value.settings),
       timer: TJSON.serialize(value.timer),
       startTime: stringify(value.startTime),
+      disabled: value.disabled,
     };
     value.trackers.forEach((value: Tracker) =>
       obj.trackers.push(TRACKER_JSON.serialize(value))
@@ -149,6 +157,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       trackers: object[];
       timer: object;
       startTime: string;
+      disabled: boolean;
     };
     const trackers: Map<string, Tracker> = new Map<string, Tracker>();
     value.trackers.forEach((value: object) => {
@@ -162,6 +171,7 @@ export const SESSION_JSON: IJson<TrackingSession> = {
       settings: SJSON.deserialize(value.settings),
       timer: TJSON.deserialize(value.timer),
       startTime: parse(value.startTime),
+      disabled: value.disabled,
     };
   },
 };
@@ -174,12 +184,14 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: object;
       timers: object[];
       index: number;
+      disabled: boolean;
     } = {
       tracking_id: value.tracking_id,
       parent: value.parent,
       settings: SJSON.serialize(value.settings),
       timers: [],
       index: value.index,
+      disabled: value.disabled,
     };
     value.timers.forEach((value: Timer) =>
       obj.timers.push(TJSON.serialize(value))
@@ -193,6 +205,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: object;
       timers: object[];
       index: number;
+      disabled: boolean;
     };
     const timers: Timer[] = [];
     value.timers.forEach(
@@ -205,6 +218,7 @@ export const TRACKER_JSON: IJson<Tracker> = {
       settings: SJSON.deserialize(value.settings),
       timers: timers,
       index: value.index,
+      disabled: value.disabled,
     };
   },
 };

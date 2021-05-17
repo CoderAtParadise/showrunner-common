@@ -6,7 +6,7 @@ import { Point, stringify, parse } from "./Time";
 import { DirectionStorage,JSON as DJSON } from "./Direction";
 
 export interface SessionData {
-  start: {session_id: string, time:Point}[];
+  start: {session_id: string, time:Point,disabled: boolean}[];
   save: boolean;
 }
 
@@ -16,7 +16,7 @@ export const JSON: IJson<SessionStorage> = {
   serialize(value: SessionStorage): object {
     const obj: {
       tracking: string;
-      start: {session_id: string,time:string}[];
+      start: {session_id: string,time:string,disabled: boolean}[];
       save_tracking: boolean;
       display: string;
       disabled: boolean;
@@ -38,7 +38,7 @@ export const JSON: IJson<SessionStorage> = {
     value.directions.forEach((value: DirectionStorage) => {
       obj.directions.push(DJSON.serialize(value));
     });
-    value.start.forEach((value: {session_id: string,time:Point}) => obj.start.push({session_id: value.session_id,time:stringify(value.time)}));
+    value.start.forEach((value: {session_id: string,time:Point,disabled:boolean}) => obj.start.push({session_id: value.session_id,time:stringify(value.time),disabled:value.disabled}));
     value.nested.forEach((svalue: Storage) =>{
       let json = BJSON.serialize(svalue as BracketStorage);
       (json as {index: number}).index = (value as unknown as Nested).index.indexOf(svalue.tracking);
@@ -50,7 +50,7 @@ export const JSON: IJson<SessionStorage> = {
   deserialize(json: object): SessionStorage {
     const value = json as {
       tracking: string;
-      start: {session_id: string,time:string}[];
+      start: {session_id: string,time:string,disabled:boolean}[];
       save_tracking: boolean;
       display: string;
       disabled: boolean;
@@ -59,7 +59,7 @@ export const JSON: IJson<SessionStorage> = {
       directions: object[];
       index: number;
     };
-    const start: {session_id:string,time:Point}[] = [];
+    const start: {session_id:string,time:Point,disabled:boolean}[] = [];
     const brackets: Map<string,BracketStorage> = new Map<string,BracketStorage>();
     const index: string[] = [];
     value.brackets.forEach((json: object) =>
@@ -68,7 +68,7 @@ export const JSON: IJson<SessionStorage> = {
       index[(json as {index: number}).index] = bracket.tracking;
       brackets.set(bracket.tracking,bracket);
     });
-    value.start.forEach((json: {session_id: string,time:string}) => start.push({session_id: json.session_id,time:parse(json.time)}));
+    value.start.forEach((json: {session_id: string,time:string,disabled:boolean}) => start.push({session_id: json.session_id,time:parse(json.time),disabled:json.disabled}));
     const directions: DirectionStorage[] = [];
     value.directions.forEach((json: object) =>
       directions.push(DJSON.deserialize(json))
