@@ -1,4 +1,4 @@
-import { Settings, Timer, JSON as SJSON, TimerState,TIMER_JSON as TJSON } from "./Timer";
+import { Settings, Timer, JSON as SJSON, TimerState,TIMER_JSON as TJSON, Behaviour, Display } from "./Timer";
 import {
   INVALID as INVALID_POINT,
   add,
@@ -26,6 +26,37 @@ export interface Tracker {
   settings: Settings;
   timers: Timer[];
   index: number;
+}
+
+export const INVALID_TRACKER: Tracker = {
+  tracking_id: "",
+  parent: "",
+  settings:{
+    duration: INVALID_POINT,
+    behaviour: Behaviour.HIDE,
+    display: Display.ELAPSED,
+    show: false,
+  },
+  timers: [],
+  index: -1
+}
+
+export const INVALID_SESSION: TrackingSession = {
+  session_id: "",
+  tracking_id: "",
+  trackers: new Map<string,Tracker>([["",INVALID_TRACKER]]),
+  settings: {
+    duration: INVALID_POINT,
+    behaviour: Behaviour.HIDE,
+    display: Display.ELAPSED,
+    show: false,
+  },
+  startTime: INVALID_POINT,
+  timer: {
+    start: INVALID_POINT,
+    end: INVALID_POINT,
+    state: TimerState.HIDDEN
+  }
 }
 
 function buildTracking(parent: string, storage: Storage): Tracker {
