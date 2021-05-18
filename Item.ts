@@ -21,9 +21,6 @@ export const JSON: IJson<ItemStorage> = {
       timer: TJSON.serialize(value.timer),
       directions: [],
     };
-    value.directions.forEach((value: DirectionStorage) => {
-      obj.directions.push(DJSON.serialize(value));
-    });
     return obj;
   },
 
@@ -35,17 +32,13 @@ export const JSON: IJson<ItemStorage> = {
       timer: {};
       directions: object[];
     };
-    const directions: DirectionStorage[] = [];
-    value.directions.forEach((json: object) =>
-      directions.push(DJSON.deserialize(json))
-    );
     return {
       tracking: value.tracking,
       type: Type.ITEM,
       display: value.display,
       disabled: value.disabled,
       timer: TJSON.deserialize(value.timer),
-      directions: directions,
+      directions: [],
     };
   },
 };

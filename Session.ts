@@ -35,9 +35,6 @@ export const JSON: IJson<SessionStorage> = {
       directions: [],
       index: -1,
     };
-    value.directions.forEach((value: DirectionStorage) => {
-      obj.directions.push(DJSON.serialize(value));
-    });
     value.start.forEach((value: {session_id: string,time:Point,disabled:boolean}) => obj.start.push({session_id: value.session_id,time:stringify(value.time),disabled:value.disabled}));
     value.nested.forEach((svalue: Storage) =>{
       let json = BJSON.serialize(svalue as BracketStorage);
@@ -69,10 +66,6 @@ export const JSON: IJson<SessionStorage> = {
       brackets.set(bracket.tracking,bracket);
     });
     value.start.forEach((json: {session_id: string,time:string,disabled:boolean}) => start.push({session_id: json.session_id,time:parse(json.time),disabled:json.disabled}));
-    const directions: DirectionStorage[] = [];
-    value.directions.forEach((json: object) =>
-      directions.push(DJSON.deserialize(json))
-    );
     return {
       tracking: value.tracking,
       start: start,
@@ -82,7 +75,7 @@ export const JSON: IJson<SessionStorage> = {
       disabled: value.disabled,
       timer: TJSON.deserialize(value.timer),
       nestedType: Type.BRACKET,
-      directions: directions,
+      directions: [],
       nested: brackets,
       index: index,
     };
