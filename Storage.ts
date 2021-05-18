@@ -53,7 +53,8 @@ export function add(
 ): boolean {
   if (canStore(list, value)) {
     list.nested.set(value.tracking, value);
-    list.index.splice(index, 0, value.tracking);
+    if(!list.index.indexOf(value.tracking))
+      list.index.splice(index, 0, value.tracking);
     return true;
   }
   return false;
