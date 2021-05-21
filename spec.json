@@ -57,7 +57,8 @@
       "start_time": "08:00:00",
       "team": [],
       "timer": {
-        "display": "elapsed",
+        "type": "elapsed",
+        "source": "internal",
         "behaviour": "overrun",
         "duration": "01:20:00"
       }
@@ -72,7 +73,8 @@
       "display": "Pre-Roll",
       "disabled": "false",
       "timer": {
-        "display": "countdown",
+        "type": "countdown",
+        "source": "internal",
         "behaviour": "stop",
         "duration": "00:05:00"
       }
@@ -87,7 +89,8 @@
       "display": "Jan PreRoll Video",
       "disabled": false,
       "timer": {
-        "display": "countdown",
+        "type": "countdown",
+        "source": "internal",
         "behaviour": "stop",
         "duration": "00:04:30"
       }
@@ -102,7 +105,8 @@
       "display": "Worship",
       "disabled": false,
       "timer": {
-        "display": "elapsed",
+        "type": "elapsed",
+        "source": "internal",
         "behaviour": "overrun",
         "duration": "00:20:00"
       }
@@ -117,7 +121,8 @@
       "display": "Song 1",
       "disabled": false,
       "timer": {
-        "display": "elapsed",
+        "type": "elapsed",
+        "source": "internal",
         "behaviour": "overrun",
         "duration": "00:05:00"
       }
@@ -132,7 +137,8 @@
       "display": "Song 2",
       "disabled": false,
       "timer": {
-        "display": "elapsed",
+        "type": "elapsed",
+        "source": "internal",
         "behaviour": "overrun",
         "duration": "00:05:00"
       }

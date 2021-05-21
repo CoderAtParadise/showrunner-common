@@ -1,9 +1,5 @@
 import IJson from "./IJson";
-import {
-  Point,
-  stringify,
-  parse,
-} from "./Time";
+import { Point, stringify, parse } from "./Time";
 
 export enum Behaviour {
   STOP = "stop",
@@ -11,16 +7,16 @@ export enum Behaviour {
   OVERRUN = "overrun",
 }
 
-export enum Display {
+export enum Type {
   COUNTDOWN = "countdown",
   ELAPSED = "elapsed",
 }
 
 export interface Settings {
   duration: Point;
+  source: string;
   behaviour: Behaviour;
-  display: Display;
-  show: boolean;
+  type: Type;
 }
 
 export enum TimerState {
@@ -63,23 +59,23 @@ export const JSON: IJson<Settings> = {
     return {
       display: value.display as string,
       behaviour: value.behaviour as string,
+      source: value.source,
       duration: stringify(value.duration),
-      show: value.show,
     };
   },
 
   deserialize(json: object): Settings {
     const value = json as {
       display: string;
+      source: string;
       behaviour: string;
       duration: string;
-      show: boolean;
     };
     return {
       display: value.display as Display,
+      source: value.source,
       behaviour: value.behaviour as Behaviour,
       duration: parse(value.duration),
-      show: value.show,
     };
   },
 };

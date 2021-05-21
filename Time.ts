@@ -11,7 +11,10 @@ export interface Point {
   readonly relative: Relative;
 }
 
-export interface MRelativePoint extends Point {
+export interface ModifiablePoint extends Point {
+  hours: number;
+  minutes: number;
+  seconds: number;
   relative: Relative;
 }
 
@@ -21,16 +24,6 @@ export const INVALID: Point = {
   seconds: -1,
   relative: Relative.NONE,
 };
-
-export function now(): Point {
-  const now = new Date();
-  return {
-    hours: now.getHours(),
-    minutes: now.getMinutes(),
-    seconds: now.getSeconds(),
-    relative: Relative.NONE,
-  };
-}
 
 export function copy(point: Point): Point {
   return {

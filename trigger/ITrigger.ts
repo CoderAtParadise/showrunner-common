@@ -1,4 +1,4 @@
-import IJson from "./IJson";
+import IJson from "../IJson";
 
 export interface ITrigger{
     type:string;
