@@ -21,7 +21,7 @@ export const JSON: IJson<TimerProperty> = {
       timer: {
         type: property.value.type as string,
         source: property.value.source,
-        behvaiour: property.value.behaviour as string,
+        behaviour: property.value.behaviour as string,
         duration: stringify(property.value.duration),
       },
     };

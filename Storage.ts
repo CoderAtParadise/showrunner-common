@@ -1,10 +1,10 @@
 import IProperty, { INVALID as INVALID_PROPERTY } from "./property/IProperty";
 
 export enum Type {
-  INVALID = "INVALID",
-  SESSION = "SESSION",
-  BRACKET = "BRACKET",
-  ITEM = "ITEM",
+  INVALID = "invalid",
+  SESSION = "session",
+  BRACKET = "bracket",
+  ITEM = "item",
 }
 
 export interface Storage<Properties extends IProperty<any>[]> {

@@ -1,43 +1,25 @@
 import Storage, { checkProperties, Type } from "./Storage";
-import registerPropertyDirections, {
+import {
   DirectionsProperty,
   INVALID as INVALID_DIRECTIONS,
 } from "./property/Directions";
-import registerPropertyDisplay, {
+import {
   DisplayProperty,
   INVALID as INVALID_DISPLAY,
 } from "./property/Display";
-import registerPropertyStartTime, {
+import {
   StartTimeProperty,
   INVALID as INVALID_STARTTIME,
 } from "./property/StartTime";
-import registerPropertyParent, {
-  ParentProperty,
-  INVALID as INVALID_PARENT,
-} from "./property/Parent";
-import registerPropertyTimer, {
-  TimerProperty,
-  INVALID as INVALID_TIMER,
-} from "./property/Timer";
-import registerPropertyDisabled, {
+import { ParentProperty, INVALID as INVALID_PARENT } from "./property/Parent";
+import { TimerProperty, INVALID as INVALID_TIMER } from "./property/Timer";
+import {
   DisabledProperty,
   INVALID as INVALID_DISABLED,
 } from "./property/Disabled";
-import registerPropertySave, {
-  SaveProperty,
-  INVALID as INVALID_SAVE,
-} from "./property/Save";
+import { SaveProperty, INVALID as INVALID_SAVE } from "./property/Save";
 import IProperty, { getProperty } from "./property/IProperty";
 import IJson from "./IJson";
-
-//Call the register Functions For Properties
-registerPropertyDisplay;
-registerPropertyDisabled;
-registerPropertySave;
-registerPropertyStartTime;
-registerPropertyTimer;
-registerPropertyDirections;
-registerPropertyParent;
 
 type SessionProperties = [
   DisplayProperty,
@@ -183,4 +165,3 @@ export const ITEM_JSON: IJson<Item> = {
     throw `Failed to deserialize ${JSON.stringify(json)} as Item`;
   },
 };
-
