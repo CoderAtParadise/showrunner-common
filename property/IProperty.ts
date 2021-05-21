@@ -10,6 +10,15 @@ export const INVALID: IProperty<undefined> = {
   value: undefined,
 };
 
+const INVALID_JSON : IJson<IProperty<undefined>> = {
+  serialize: (value:IProperty<undefined>) : object => {
+    return {};
+  },
+  deserialize: (json:any): IProperty<undefined> => {
+    return INVALID;
+  }
+}
+
 const PropertyRegistry: Map<string,IJson<any>> = new Map<string,IJson<any>>();
 
 export function registerProperty<Value,Data extends IProperty<Value>>(key:string,property:IJson<Data>) : void {
@@ -17,7 +26,7 @@ export function registerProperty<Value,Data extends IProperty<Value>>(key:string
 }
 
 export function getProperty(key:string): IJson<any>  {
-  return PropertyRegistry.get(key);
+  return PropertyRegistry.get(key) || INVALID_JSON;
 }
 
 export default IProperty;

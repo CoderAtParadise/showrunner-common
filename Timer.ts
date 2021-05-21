@@ -1,5 +1,5 @@
 import IJson from "./IJson";
-import { Point, stringify, parse } from "./Time";
+import { Point, stringify, parse, INVALID as INVALID_POINT } from "./Time";
 
 export enum Behaviour {
   STOP = "stop",
@@ -32,6 +32,13 @@ export interface Timer {
   state: TimerState;
 }
 
+export const INVALID_SETTINGS : Settings = {
+  type: Type.COUNTDOWN,
+  source: "invalid",
+  behaviour: Behaviour.HIDE,
+  duration: INVALID_POINT,
+}
+
 export const TIMER_JSON: IJson<Timer> = {
   serialize(value: Timer): object {
     return {
@@ -57,7 +64,7 @@ export const TIMER_JSON: IJson<Timer> = {
 export const JSON: IJson<Settings> = {
   serialize(value: Settings): object {
     return {
-      display: value.display as string,
+      type: value.type as string,
       behaviour: value.behaviour as string,
       source: value.source,
       duration: stringify(value.duration),
@@ -66,13 +73,13 @@ export const JSON: IJson<Settings> = {
 
   deserialize(json: object): Settings {
     const value = json as {
-      display: string;
+      type: string;
       source: string;
       behaviour: string;
       duration: string;
     };
     return {
-      display: value.display as Display,
+      type: value.type as Type,
       source: value.source,
       behaviour: value.behaviour as Behaviour,
       duration: parse(value.duration),

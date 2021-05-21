@@ -1,7 +1,13 @@
 import { Direction, JSON as DJSON } from "../Direction";
 import IJson from "../IJson";
+import { registerProperty } from "./IProperty";
 
 export type DirectionsProperty = { key: "directions"; value: Direction[] };
+
+export const INVALID: DirectionsProperty = {
+  key: "directions",
+  value: [],
+};
 
 export const JSON: IJson<DirectionsProperty> = {
   serialize: (property: DirectionsProperty): object => {
@@ -23,3 +29,5 @@ export const JSON: IJson<DirectionsProperty> = {
 export function createProperty(value: Direction[]): DirectionsProperty {
   return { key: "directions", value: value };
 }
+
+export default registerProperty("directions", JSON);

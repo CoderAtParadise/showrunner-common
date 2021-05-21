@@ -1,8 +1,19 @@
-import { Settings as TimerValue, Type, Behaviour } from "../Timer";
+import {
+  Settings as TimerValue,
+  Type,
+  Behaviour,
+  INVALID_SETTINGS,
+} from "../Timer";
 import { parse, stringify } from "../Time";
 import IJson from "../IJson";
+import { registerProperty } from "./IProperty";
 
 export type TimerProperty = { key: "timer"; value: TimerValue };
+
+export const INVALID: TimerProperty = {
+  key: "timer",
+  value: INVALID_SETTINGS,
+};
 
 export const JSON: IJson<TimerProperty> = {
   serialize: (property: TimerProperty): object => {
@@ -25,6 +36,8 @@ export const JSON: IJson<TimerProperty> = {
   },
 };
 
-export default function createProperty(value: TimerValue): TimerProperty {
+export function createProperty(value: TimerValue): TimerProperty {
   return { key: "timer", value: value };
 }
+
+export default registerProperty("timer",JSON);

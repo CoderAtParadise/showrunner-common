@@ -1,6 +1,12 @@
 import IJson from "../IJson";
+import { registerProperty } from "./IProperty";
 
 export type DisabledProperty = { key: "disabled"; value: boolean };
+
+export const INVALID: DisabledProperty = {
+  key: "disabled",
+  value: false,
+};
 
 export const JSON: IJson<DisabledProperty> = {
   serialize: (property: DisabledProperty): object => {
@@ -14,3 +20,5 @@ export const JSON: IJson<DisabledProperty> = {
 export function createProperty(value: boolean): DisabledProperty {
   return { key: "disabled", value: value };
 }
+
+export default registerProperty("disabled",JSON);
