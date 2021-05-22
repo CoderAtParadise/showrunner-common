@@ -1,6 +1,7 @@
 import IJson from "./IJson";
+import { ParentProperty } from "./property/Parent";
 import { Show, JSON as SHOW_JSON } from "./Show";
-import Storage, { Type } from "./Storage";
+import Storage, { getProperty, hasProperty, Type } from "./Storage";
 import {
   Bracket,
   BRACKET_JSON,
@@ -10,13 +11,36 @@ import {
   SESSION_JSON,
 } from "./Types";
 
-interface Runsheet {
+export interface Runsheet {
   version: number;
   id: string;
   display: string;
   shows: Map<string, Show>;
-  index:string[]
+  index: string[];
   defaults: Map<string, Storage<any>>;
+}
+
+export function gatherChildren(
+  runsheet: Runsheet,
+  showid: string,
+  id: string
+): string[] {
+  const children: string[] = [];
+  const show = runsheet.shows.get(showid);
+  if (show) {
+    if (show.tracking_list.indexOf(id) !== -1) {
+      runsheet.defaults.forEach((value: Storage<any>) => {
+        if (hasProperty(value, "parent")) {
+          const property = getProperty(value, show, "parent") as ParentProperty;
+          if (property) {
+            if (property.value.id === id)
+              children[property.value.index] = value.id;
+          }
+        }
+      });
+    }
+  }
+  return children;
 }
 
 export const JSON: IJson<Runsheet> = {
@@ -24,7 +48,7 @@ export const JSON: IJson<Runsheet> = {
     const shows: object[] = [];
     value.shows.forEach((show: Show) => {
       const obj = SHOW_JSON.serialize(show);
-      (obj as {index:number}).index = (value.index.indexOf(show.id));
+      (obj as { index: number }).index = value.index.indexOf(show.id);
       shows.push(obj);
     });
     const defaults: object[] = [];
@@ -52,30 +76,30 @@ export const JSON: IJson<Runsheet> = {
     const shows: Map<string, Show> = new Map<string, Show>();
     const defaults: Map<string, Storage<any>> = new Map<string, Storage<any>>();
     const index: string[] = [];
-    (json.shows as object[]).forEach((value:any) => {
-        index[value.index] = value.id;
-        shows.set(value.id,SHOW_JSON.deserialize(value));
+    (json.shows as object[]).forEach((value: any) => {
+      index[value.index] = value.id;
+      shows.set(value.id, SHOW_JSON.deserialize(value));
     });
 
-    (json.defaults as object[]).forEach((value:any) => {
-        switch(value.type as Type) {
-            case Type.SESSION:
-                defaults.set(value.id,SESSION_JSON.deserialize(value));
-                break;
-            case Type.BRACKET:
-                defaults.set(value.id,BRACKET_JSON.deserialize(value));
-                break;
-            case Type.ITEM:
-                defaults.set(value.id,ITEM_JSON.deserialize(value));
-                break;
-        }
+    (json.defaults as object[]).forEach((value: any) => {
+      switch (value.type as Type) {
+        case Type.SESSION:
+          defaults.set(value.id, SESSION_JSON.deserialize(value));
+          break;
+        case Type.BRACKET:
+          defaults.set(value.id, BRACKET_JSON.deserialize(value));
+          break;
+        case Type.ITEM:
+          defaults.set(value.id, ITEM_JSON.deserialize(value));
+          break;
+      }
     });
 
     return {
       version: json.version,
       id: json.id,
       display: json.display,
-      index:index,
+      index: index,
       shows: shows,
       defaults: defaults,
     };

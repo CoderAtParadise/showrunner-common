@@ -25,7 +25,7 @@ export function registerProperty<Value,Data extends IProperty<Value>>(key:string
   PropertyRegistry.set(key,property);
 }
 
-export function getProperty(key:string): IJson<any>  {
+export function getPropertyJSON(key:string): IJson<any>  {
   return PropertyRegistry.get(key) || INVALID_JSON;
 }
 

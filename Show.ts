@@ -1,11 +1,35 @@
-import debug from "debug";
 import IJson from "./IJson";
-import IProperty, { getProperty } from "./property/IProperty";
+import IProperty, { getPropertyJSON, INVALID } from "./property/IProperty";
 
 export interface Show {
   id: string;
   tracking_list: string[];
   overrides: Map<string, IProperty<any>[]>;
+}
+
+export function hasOverrideProperty(
+  show: Show,
+  id: string,
+  key: string
+): boolean {
+  if (!show.overrides.has(id)) return false;
+  const properties = show.overrides.get(id);
+  if (properties) {
+    return properties.some((value: IProperty<any>) => value.key === key);
+  }
+  return false;
+}
+
+export function getOverrideProperty(
+  show: Show,
+  id: string,
+  key: string
+): IProperty<any> | undefined {
+  const properties = show.overrides.get(id);
+  if (properties) {
+    return properties.find((value: IProperty<any>) => value.key === key);
+  }
+  return undefined;
 }
 
 export const JSON: IJson<Show> = {
@@ -16,7 +40,7 @@ export const JSON: IJson<Show> = {
         overrides.push(
           Object.assign(
             { id: key },
-            getProperty(property.key).serialize(property)
+            getPropertyJSON(property.key).serialize(property)
           )
         )
       );
@@ -38,9 +62,11 @@ export const JSON: IJson<Show> = {
           if (overrides.has(value.id)) {
             overrides
               .get(value.id)
-              ?.push(getProperty(key).deserialize(value[key]));
+              ?.push(getPropertyJSON(key).deserialize(value[key]));
           } else {
-            overrides.set(value.id, [getProperty(key).deserialize(value[key])]);
+            overrides.set(value.id, [
+              getPropertyJSON(key).deserialize(value[key]),
+            ]);
           }
         }
       });

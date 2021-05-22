@@ -1,4 +1,5 @@
 import IProperty, { INVALID as INVALID_PROPERTY } from "./property/IProperty";
+import Show, { getOverrideProperty, hasOverrideProperty } from "./Show";
 
 export enum Type {
   INVALID = "invalid",
@@ -28,17 +29,15 @@ export function checkProperties<Required extends IProperty<any>[]>(
     if (properties[index].key === value.key) return true;
   });
   //cleanup and remove any additional properties
-  if(properties.length > required.length)
+  if (properties.length > required.length)
     properties.splice(required.length, properties.length - required.length);
   return hasRequired;
 }
 
 export function hasProperty(storage: Storage<any>, key: string) {
   if (Array.isArray(storage.properties)) {
-    (storage.properties as IProperty<any>[]).forEach(
-      (property: IProperty<any>) => {
-        if (property.key === key) return true;
-      }
+    return (storage.properties as IProperty<any>[]).some(
+      (property: IProperty<any>) => property.key === key
     );
   }
   return false;
@@ -46,16 +45,18 @@ export function hasProperty(storage: Storage<any>, key: string) {
 
 export function getProperty(
   storage: Storage<any>,
+  show: Show,
   key: string
-): IProperty<any> {
+): IProperty<any> | undefined {
   if (hasProperty(storage, key)) {
-    (storage.properties as IProperty<any>[]).forEach(
-      (property: IProperty<any>) => {
-        if (property.key === key) return property;
-      }
-    );
+    if (hasOverrideProperty(show, storage.id, key)) {
+      return getOverrideProperty(show, storage.id, key);
+    } else
+      return (storage.properties as IProperty<any>[]).find(
+        (property: IProperty<any>) => property.key === key
+      );
   }
-  return INVALID_PROPERTY;
+  return undefined;
 }
 
 export default Storage;

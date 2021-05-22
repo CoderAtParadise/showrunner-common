@@ -18,7 +18,7 @@ import {
   INVALID as INVALID_DISABLED,
 } from "./property/Disabled";
 import { SaveProperty, INVALID as INVALID_SAVE } from "./property/Save";
-import IProperty, { getProperty } from "./property/IProperty";
+import IProperty, { getPropertyJSON } from "./property/IProperty";
 import IJson from "./IJson";
 
 type SessionProperties = [
@@ -83,7 +83,7 @@ export const SESSION_JSON: IJson<Session> = {
       type: value.type as string,
     };
     value.properties.forEach((value) => {
-      obj = Object.assign(obj, getProperty(value.key).serialize(value));
+      obj = Object.assign(obj, getPropertyJSON(value.key).serialize(value));
     });
     return obj;
   },
@@ -92,7 +92,7 @@ export const SESSION_JSON: IJson<Session> = {
       const props: IProperty<any>[] = [];
       Object.entries(json).forEach((value: [string, any]) => {
         if (value[0] !== "id" && value[0] !== "type") {
-          props.push(getProperty(value[0]).deserialize(value[1]));
+          props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
       if (checkProperties(SessionPropertiesDefault, props))
@@ -113,7 +113,7 @@ export const BRACKET_JSON: IJson<Bracket> = {
       type: value.type as string,
     };
     value.properties.forEach((value) => {
-      obj = Object.assign(obj, getProperty(value.key).serialize(value));
+      obj = Object.assign(obj, getPropertyJSON(value.key).serialize(value));
     });
     return obj;
   },
@@ -122,7 +122,7 @@ export const BRACKET_JSON: IJson<Bracket> = {
       const props: IProperty<any>[] = [];
       Object.entries(json).forEach((value: [string, any]) => {
         if (value[0] !== "id" && value[0] !== "type") {
-          props.push(getProperty(value[0]).deserialize(value[1]));
+          props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
       if (checkProperties(BracketPropertiesDefault, props))
@@ -143,7 +143,7 @@ export const ITEM_JSON: IJson<Item> = {
       type: value.type as string,
     };
     value.properties.forEach((value) => {
-      obj = Object.assign(obj, getProperty(value.key).serialize(value));
+      obj = Object.assign(obj, getPropertyJSON(value.key).serialize(value));
     });
     return obj;
   },
@@ -152,7 +152,7 @@ export const ITEM_JSON: IJson<Item> = {
       const props: IProperty<any>[] = [];
       Object.entries(json).forEach((value: [string, any]) => {
         if (value[0] !== "id" && value[0] !== "type") {
-          props.push(getProperty(value[0]).deserialize(value[1]));
+          props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
       if (checkProperties(ItemPropertiesDefault, props))
