@@ -20,12 +20,14 @@ import {
 import { SaveProperty, INVALID as INVALID_SAVE } from "./property/Save";
 import IProperty, { getPropertyJSON } from "./property/IProperty";
 import IJson from "./IJson";
+import { IndexListProperty,INVALID as INVALID_INDEX_LIST } from "./property/IndexList";
 
 type SessionProperties = [
   DisplayProperty,
   DisabledProperty,
   SaveProperty,
   StartTimeProperty,
+  IndexListProperty,
   TimerProperty,
   DirectionsProperty
 ];
@@ -34,6 +36,7 @@ type BracketProperties = [
   ParentProperty,
   DisplayProperty,
   DisabledProperty,
+  IndexListProperty,
   TimerProperty,
   DirectionsProperty
 ];
@@ -46,24 +49,26 @@ type ItemProperties = [
   DirectionsProperty
 ];
 
-const SessionPropertiesDefault: SessionProperties = [
+export const SessionPropertiesDefault: SessionProperties = [
   INVALID_DISPLAY,
   INVALID_DISABLED,
   INVALID_SAVE,
   INVALID_STARTTIME,
+  INVALID_INDEX_LIST,
   INVALID_TIMER,
   INVALID_DIRECTIONS,
 ];
 
-const BracketPropertiesDefault: BracketProperties = [
+export const BracketPropertiesDefault: BracketProperties = [
   INVALID_PARENT,
   INVALID_DISPLAY,
   INVALID_DISABLED,
+  INVALID_INDEX_LIST,
   INVALID_TIMER,
   INVALID_DIRECTIONS,
 ];
 
-const ItemPropertiesDefault: ItemProperties = [
+export const ItemPropertiesDefault: ItemProperties = [
   INVALID_PARENT,
   INVALID_DISPLAY,
   INVALID_DISABLED,
@@ -102,7 +107,7 @@ export const SESSION_JSON: IJson<Session> = {
           properties: props as SessionProperties,
         };
     }
-    throw `Failed to deserialize ${JSON.stringify(json)} as Bracket`;
+    throw `Failed to deserialize ${JSON.stringify(json)} as Session`;
   },
 };
 
@@ -132,7 +137,7 @@ export const BRACKET_JSON: IJson<Bracket> = {
           properties: props as BracketProperties,
         };
     }
-    throw `Failed to deserialize ${JSON.stringify(json)} as Session`;
+    throw `Failed to deserialize ${JSON.stringify(json)} as Bracket`;
   },
 };
 

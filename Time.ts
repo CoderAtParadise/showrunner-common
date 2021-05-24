@@ -112,3 +112,5 @@ export function parse(str: string): Point {
     relative: relative,
   };
 }
+
+export default Point;

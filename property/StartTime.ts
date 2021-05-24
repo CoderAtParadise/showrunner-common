@@ -1,6 +1,6 @@
 import IJson from "../IJson";
 import { Point, stringify, parse, INVALID as INVALID_POINT } from "../Time";
-import { registerProperty } from "./IProperty";
+import { registerPropertyJSON } from "./IProperty";
 
 export type StartTimeProperty = { key: "start_time"; value: Point };
 
@@ -14,12 +14,8 @@ export const JSON: IJson<StartTimeProperty> = {
     return { start_time: stringify(property.value) };
   },
   deserialize: (json: any): StartTimeProperty => {
-    return createProperty(parse(json));
+    return { key: "start_time", value: parse(json) };
   },
 };
 
-export function createProperty(value: Point): StartTimeProperty {
-  return { key: "start_time", value: value };
-}
-
-export default registerProperty("start_time",JSON);
+export default registerPropertyJSON("start_time",JSON);

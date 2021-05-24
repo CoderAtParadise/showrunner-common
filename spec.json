@@ -52,40 +52,41 @@
     {
       "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
       "type": "session",
-      "disabled": false,
       "display": "Service",
+      "disabled": false,
+      "save": true,
       "start_time": "08:00:00",
-      "team": [],
+      "index_list": [
+        "1d7db0a7-7787-444a-bbd7-6efbeb7041cf",
+        "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f"
+      ],
       "timer": {
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
         "duration": "01:20:00"
-      }
+      },
+      "directions": []
     },
     {
       "id": "1d7db0a7-7787-444a-bbd7-6efbeb7041cf",
       "type": "bracket",
-      "parent": {
-        "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
-        "index": 0
-      },
+      "parent": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
       "display": "Pre-Roll",
-      "disabled": "false",
+      "disabled": false,
+      "index_list": ["e213a399-a633-47cd-bcbf-6f39bc1d5014"],
       "timer": {
         "type": "countdown",
         "source": "internal",
         "behaviour": "stop",
         "duration": "00:05:00"
-      }
+      },
+      "directions": []
     },
     {
       "id": "e213a399-a633-47cd-bcbf-6f39bc1d5014",
       "type": "item",
-      "parent": {
-        "id": "1d7db0a7-7787-444a-bbd7-6efbeb7041cf",
-        "index": 0
-      },
+      "parent": "1d7db0a7-7787-444a-bbd7-6efbeb7041cf",
       "display": "Jan PreRoll Video",
       "disabled": false,
       "timer": {
@@ -93,31 +94,31 @@
         "source": "internal",
         "behaviour": "stop",
         "duration": "00:04:30"
-      }
+      },
+      "directions": []
     },
     {
       "id": "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f",
       "type": "bracket",
-      "parent": {
-        "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
-        "index": 1
-      },
+      "parent": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
       "display": "Worship",
       "disabled": false,
+      "index_list": [
+        "38bf26cd-2e41-442a-81bf-4dc8406dafd0",
+        "d5c2758f-67ba-4615-afb6-c3581dca5133"
+      ],
       "timer": {
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
         "duration": "00:20:00"
-      }
+      },
+      "directions": []
     },
     {
       "id": "38bf26cd-2e41-442a-81bf-4dc8406dafd0",
       "type": "item",
-      "parent": {
-        "id": "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f",
-        "index": 0
-      },
+      "parent": "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f",
       "display": "Song 1",
       "disabled": false,
       "timer": {
@@ -125,15 +126,13 @@
         "source": "internal",
         "behaviour": "overrun",
         "duration": "00:05:00"
-      }
+      },
+      "directions": []
     },
     {
       "id": "d5c2758f-67ba-4615-afb6-c3581dca5133",
       "type": "item",
-      "parent": {
-        "id": "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f",
-        "index": 1
-      },
+      "parent": "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f",
       "display": "Song 2",
       "disabled": false,
       "timer": {
@@ -141,7 +140,8 @@
         "source": "internal",
         "behaviour": "overrun",
         "duration": "00:05:00"
-      }
+      },
+      "directions": []
     }
   ]
 }

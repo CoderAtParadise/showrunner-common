@@ -21,7 +21,7 @@ const INVALID_JSON : IJson<IProperty<undefined>> = {
 
 const PropertyRegistry: Map<string,IJson<any>> = new Map<string,IJson<any>>();
 
-export function registerProperty<Value,Data extends IProperty<Value>>(key:string,property:IJson<Data>) : void {
+export function registerPropertyJSON<Value,Data extends IProperty<Value>>(key:string,property:IJson<Data>) : void {
   PropertyRegistry.set(key,property);
 }
 

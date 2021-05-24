@@ -3,10 +3,11 @@ import {
   Type,
   Behaviour,
   INVALID_SETTINGS,
+  SETTINGS_JSON,
 } from "../Timer";
 import { parse, stringify } from "../Time";
 import IJson from "../IJson";
-import { registerProperty } from "./IProperty";
+import { registerPropertyJSON } from "./IProperty";
 
 export type TimerProperty = { key: "timer"; value: TimerValue };
 
@@ -18,26 +19,12 @@ export const INVALID: TimerProperty = {
 export const JSON: IJson<TimerProperty> = {
   serialize: (property: TimerProperty): object => {
     return {
-      timer: {
-        type: property.value.type as string,
-        source: property.value.source,
-        behaviour: property.value.behaviour as string,
-        duration: stringify(property.value.duration),
-      },
+      timer: SETTINGS_JSON.serialize(property.value),
     };
   },
   deserialize: (json: any): TimerProperty => {
-    return createProperty({
-      type: json.type as Type,
-      source: json.source,
-      behaviour: json.behaviour as Behaviour,
-      duration: parse(json.duration),
-    });
+    return { key: "timer", value: SETTINGS_JSON.deserialize(json) }
   },
 };
 
-export function createProperty(value: TimerValue): TimerProperty {
-  return { key: "timer", value: value };
-}
-
-export default registerProperty("timer",JSON);
+export default registerPropertyJSON("timer",JSON);

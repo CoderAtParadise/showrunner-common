@@ -1,5 +1,5 @@
 import IJson from "../IJson";
-import { registerProperty } from "./IProperty";
+import { registerPropertyJSON } from "./IProperty";
 
 export type SaveProperty = { key: "save"; value: boolean };
 
@@ -13,12 +13,8 @@ export const JSON: IJson<SaveProperty> = {
     return { save: property.value };
   },
   deserialize: (json: any): SaveProperty => {
-    return createProperty(json as boolean);
+    return { key: "save", value: json as boolean };
   },
 };
 
-export function createProperty(value: boolean): SaveProperty {
-  return { key: "save", value: value };
-}
-
-export default registerProperty("save",JSON);
+export default registerPropertyJSON("save",JSON);

@@ -1,10 +1,24 @@
 import IJson from "./IJson";
-import IProperty, { getPropertyJSON, INVALID } from "./property/IProperty";
+import IProperty, { getPropertyJSON } from "./property/IProperty";
+import Runsheet from "./Runsheet";
+import Storage, { Type, getProperty, hasProperty } from "./Storage";
+import { ParentProperty } from "./property/Parent";
 
 export interface Show {
   id: string;
   tracking_list: string[];
   overrides: Map<string, IProperty<any>[]>;
+}
+
+export function getAllSessions(runsheet: Runsheet, show: Show): Storage<any>[] {
+  const sessions: Storage<any>[] = [];
+  show.tracking_list.forEach((id: string) => {
+    const storage = runsheet.defaults.get(id);
+    if (storage) {
+      if (storage.type === Type.SESSION) sessions.push(storage);
+    }
+  });
+  return sessions;
 }
 
 export function hasOverrideProperty(
@@ -35,8 +49,8 @@ export function getOverrideProperty(
 export const JSON: IJson<Show> = {
   serialize: (value: Show): object => {
     const overrides: object[] = [];
-    value.overrides.forEach((value: IProperty<any>[], key: string) => {
-      value.forEach((property: IProperty<any>) =>
+    value.overrides.forEach((properties: IProperty<any>[], key: string) => {
+      properties.forEach((property: IProperty<any>) =>
         overrides.push(
           Object.assign(
             { id: key },

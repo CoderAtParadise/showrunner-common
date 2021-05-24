@@ -1,7 +1,6 @@
 import IJson from "./IJson";
-import { ParentProperty } from "./property/Parent";
 import { Show, JSON as SHOW_JSON } from "./Show";
-import Storage, { getProperty, hasProperty, Type } from "./Storage";
+import Storage, { Type } from "./Storage";
 import {
   Bracket,
   BRACKET_JSON,
@@ -18,29 +17,6 @@ export interface Runsheet {
   shows: Map<string, Show>;
   index: string[];
   defaults: Map<string, Storage<any>>;
-}
-
-export function gatherChildren(
-  runsheet: Runsheet,
-  showid: string,
-  id: string
-): string[] {
-  const children: string[] = [];
-  const show = runsheet.shows.get(showid);
-  if (show) {
-    if (show.tracking_list.indexOf(id) !== -1) {
-      runsheet.defaults.forEach((value: Storage<any>) => {
-        if (hasProperty(value, "parent")) {
-          const property = getProperty(value, show, "parent") as ParentProperty;
-          if (property) {
-            if (property.value.id === id)
-              children[property.value.index] = value.id;
-          }
-        }
-      });
-    }
-  }
-  return children;
 }
 
 export const JSON: IJson<Runsheet> = {
@@ -105,3 +81,5 @@ export const JSON: IJson<Runsheet> = {
     };
   },
 };
+
+export default Runsheet;

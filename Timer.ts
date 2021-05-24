@@ -61,7 +61,7 @@ export const TIMER_JSON: IJson<Timer> = {
   },
 };
 
-export const JSON: IJson<Settings> = {
+export const SETTINGS_JSON: IJson<Settings> = {
   serialize(value: Settings): object {
     return {
       type: value.type as string,
@@ -86,3 +86,5 @@ export const JSON: IJson<Settings> = {
     };
   },
 };
+
+export default Timer;
