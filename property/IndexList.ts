@@ -8,7 +8,7 @@ export const INVALID: IndexListProperty = {
     value: []
 }
 
-export const JSON: IJson<IndexListProperty> = {
+const JSON: IJson<IndexListProperty> = {
     serialize: (property: IndexListProperty): object => {
         return {index_list: property.value};
     },

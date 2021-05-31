@@ -9,7 +9,7 @@ export const INVALID: StartTimeProperty = {
   value: INVALID_POINT,
 };
 
-export const JSON: IJson<StartTimeProperty> = {
+const JSON: IJson<StartTimeProperty> = {
   serialize: (property: StartTimeProperty): object => {
     return { start_time: stringify(property.value) };
   },

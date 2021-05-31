@@ -1,4 +1,4 @@
-import Storage, { checkProperties, Type } from "./Storage";
+import Storage, { Type } from "./Storage";
 import {
   DirectionsProperty,
   INVALID as INVALID_DIRECTIONS,
@@ -18,7 +18,7 @@ import {
   INVALID as INVALID_DISABLED,
 } from "./property/Disabled";
 import { SaveProperty, INVALID as INVALID_SAVE } from "./property/Save";
-import IProperty, { getPropertyJSON } from "./property/IProperty";
+import IProperty, { getPropertyJSON,hasAllProperties } from "./property/IProperty";
 import IJson from "./IJson";
 import { IndexListProperty,INVALID as INVALID_INDEX_LIST } from "./property/IndexList";
 
@@ -100,7 +100,7 @@ export const SESSION_JSON: IJson<Session> = {
           props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
-      if (checkProperties(SessionPropertiesDefault, props))
+      if (hasAllProperties(SessionPropertiesDefault, props))
         return {
           id: json.id,
           type: json.type as Type,
@@ -130,7 +130,7 @@ export const BRACKET_JSON: IJson<Bracket> = {
           props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
-      if (checkProperties(BracketPropertiesDefault, props))
+      if (hasAllProperties(BracketPropertiesDefault, props))
         return {
           id: json.id,
           type: json.type as Type,
@@ -160,7 +160,7 @@ export const ITEM_JSON: IJson<Item> = {
           props.push(getPropertyJSON(value[0]).deserialize(value[1]));
         }
       });
-      if (checkProperties(ItemPropertiesDefault, props))
+      if (hasAllProperties(ItemPropertiesDefault, props))
         return {
           id: json.id,
           type: json.type as Type,

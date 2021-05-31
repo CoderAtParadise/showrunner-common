@@ -9,7 +9,7 @@ export const INVALID: DisplayProperty = {
   value: ""
 };
 
-export const JSON: IJson<DisplayProperty> = {
+const JSON: IJson<DisplayProperty> = {
   serialize: (property: DisplayProperty): object => {
     return { display: property.value };
   },

@@ -8,7 +8,7 @@ export const INVALID: SaveProperty = {
   value: false,
 };
 
-export const JSON: IJson<SaveProperty> = {
+const JSON: IJson<SaveProperty> = {
   serialize: (property: SaveProperty): object => {
     return { save: property.value };
   },

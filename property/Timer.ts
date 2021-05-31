@@ -16,7 +16,7 @@ export const INVALID: TimerProperty = {
   value: INVALID_SETTINGS,
 };
 
-export const JSON: IJson<TimerProperty> = {
+const JSON: IJson<TimerProperty> = {
   serialize: (property: TimerProperty): object => {
     return {
       timer: SETTINGS_JSON.serialize(property.value),

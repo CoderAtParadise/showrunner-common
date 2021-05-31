@@ -1,4 +1,4 @@
-import IProperty, { INVALID as INVALID_PROPERTY } from "./property/IProperty";
+import IProperty from "./property/IProperty";
 import Show, { getOverrideProperty, hasOverrideProperty } from "./Show";
 
 export enum Type {
@@ -20,20 +20,6 @@ export const INVALID: Storage<any> = {
   properties: undefined,
 };
 
-export function checkProperties<Required extends IProperty<any>[]>(
-  required: Required,
-  properties: IProperty<any>[]
-): properties is Required {
-  if (properties.length < required.length) return false;
-  const hasRequired = required.every((value: IProperty<any>, index: number) => {
-    if (properties[index].key === value.key) return true;
-  });
-  //cleanup and remove any additional properties
-  if (properties.length > required.length)
-    properties.splice(required.length, properties.length - required.length);
-  return hasRequired;
-}
-
 export function hasProperty(storage: Storage<any>, key: string) {
   if (Array.isArray(storage.properties)) {
     return (storage.properties as IProperty<any>[]).some(
@@ -41,6 +27,21 @@ export function hasProperty(storage: Storage<any>, key: string) {
     );
   }
   return false;
+}
+
+export function getDefaultProperty(storage: Storage<any>, key: string): IProperty<any> | undefined {
+  if (hasProperty(storage, key)) {
+    return (storage.properties as IProperty<any>[]).find(
+      (property: IProperty<any>) => property.key === key
+    );
+  }
+  return undefined
+}
+
+export function setDefaultProperty(storage: Storage<any>, property: IProperty<any>): void {
+  const def = getDefaultProperty(storage, property.key);
+  if (def)
+    def.value = property.value;
 }
 
 export function getProperty(
@@ -52,9 +53,7 @@ export function getProperty(
     if (hasOverrideProperty(show, storage.id, key)) {
       return getOverrideProperty(show, storage.id, key);
     } else
-      return (storage.properties as IProperty<any>[]).find(
-        (property: IProperty<any>) => property.key === key
-      );
+      return getDefaultProperty(storage, key);
   }
   return undefined;
 }

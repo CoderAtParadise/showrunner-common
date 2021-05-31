@@ -81,7 +81,22 @@
         "behaviour": "stop",
         "duration": "00:05:00"
       },
-      "directions": []
+      "directions": [
+        {
+          "targets": ["stage"],
+          "command": "message",
+          "disabled": false,
+          "on" : "manual",
+          "message": "Manual"
+        },
+        {
+          "targets": ["stage"],
+          "command": "message",
+          "disabled": false,
+          "at": "+00:00:30",
+          "message": "At Positive"
+        }
+      ]
     },
     {
       "id": "e213a399-a633-47cd-bcbf-6f39bc1d5014",

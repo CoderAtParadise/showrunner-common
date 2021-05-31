@@ -8,7 +8,7 @@ export const INVALID: DisabledProperty = {
   value: false,
 };
 
-export const JSON: IJson<DisabledProperty> = {
+const JSON: IJson<DisabledProperty> = {
   serialize: (property: DisabledProperty): object => {
     return { disabled: property.value };
   },

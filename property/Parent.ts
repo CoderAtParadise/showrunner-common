@@ -8,7 +8,7 @@ export const INVALID: ParentProperty = {
   value:  "",
 };
 
-export const JSON: IJson<ParentProperty> = {
+const JSON: IJson<ParentProperty> = {
   serialize: (property: ParentProperty): object => {
     return { parent: property.value };
   },
