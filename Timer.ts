@@ -1,5 +1,5 @@
 import IJson from "./IJson";
-import { Point, stringify, parse, INVALID as INVALID_POINT } from "./Time";
+import { TimePoint, stringify, parse, INVALID as INVALID_POINT } from "./TimePoint";
 
 export enum Behaviour {
   STOP = "stop",
@@ -13,7 +13,7 @@ export enum Type {
 }
 
 export interface Settings {
-  duration: Point;
+  duration: TimePoint;
   source: string;
   behaviour: Behaviour;
   type: Type;
@@ -27,8 +27,8 @@ export enum TimerState {
 }
 
 export interface Timer {
-  start: Point;
-  end: Point;
+  start: TimePoint;
+  end: TimePoint;
   state: TimerState;
 }
 

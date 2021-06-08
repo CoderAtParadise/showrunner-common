@@ -5,7 +5,7 @@ import {
   INVALID_SETTINGS,
   SETTINGS_JSON,
 } from "../Timer";
-import { parse, stringify } from "../Time";
+import { parse, stringify } from "../TimePoint";
 import IJson from "../IJson";
 import { registerPropertyJSON } from "./IProperty";
 

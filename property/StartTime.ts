@@ -1,8 +1,8 @@
 import IJson from "../IJson";
-import { Point, stringify, parse, INVALID as INVALID_POINT } from "../Time";
+import { TimePoint, stringify, parse, INVALID as INVALID_POINT } from "../TimePoint";
 import { registerPropertyJSON } from "./IProperty";
 
-export type StartTimeProperty = { key: "start_time"; value: Point };
+export type StartTimeProperty = { key: "start_time"; value: TimePoint };
 
 export const INVALID: StartTimeProperty = {
   key: "start_time",

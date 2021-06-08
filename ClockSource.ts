@@ -1,8 +1,8 @@
-import { Point } from "./Time";
+import { TimePoint } from "./TimePoint";
 
 export interface ClockSource {
     id: string;
-    clock: () => Point;
+    clock: () => TimePoint;
 }
 
 export default ClockSource;

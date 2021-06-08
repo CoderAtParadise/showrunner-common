@@ -1,40 +1,40 @@
-export enum Relative {
+export enum Offset {
   NONE = "",
   START = "+",
   END = "-",
 }
 
-export interface Point {
+export interface TimePoint {
   readonly hours: number;
   readonly minutes: number;
   readonly seconds: number;
-  readonly relative: Relative;
+  readonly offset: Offset;
 }
 
-export interface ModifiablePoint extends Point {
+export interface ModifiablePoint extends TimePoint {
   hours: number;
   minutes: number;
   seconds: number;
-  relative: Relative;
+  offset: Offset;
 }
 
-export const INVALID: Point = {
+export const INVALID: TimePoint = {
   hours: -1,
   minutes: -1,
   seconds: -1,
-  relative: Relative.NONE,
+  offset: Offset.NONE,
 };
 
-export function copy(point: Point): Point {
+export function copy(point: TimePoint): TimePoint {
   return {
     hours: point.hours,
     minutes: point.minutes,
     seconds: point.seconds,
-    relative: point.relative,
+    offset: point.offset,
   };
 }
 
-export function equals(lhs: Point, rhs: Point): boolean {
+export function equals(lhs: TimePoint, rhs: TimePoint): boolean {
   return (
     lhs.hours === rhs.hours &&
     lhs.minutes === rhs.minutes &&
@@ -42,7 +42,7 @@ export function equals(lhs: Point, rhs: Point): boolean {
   );
 }
 
-export function greaterThan(lhs: Point, rhs: Point): boolean {
+export function greaterThan(lhs: TimePoint, rhs: TimePoint): boolean {
   if (lhs === INVALID || rhs === INVALID) return false;
   if (lhs.hours > rhs.hours) return true;
   if (lhs.hours === rhs.hours) {
@@ -52,7 +52,7 @@ export function greaterThan(lhs: Point, rhs: Point): boolean {
   return false;
 }
 
-export function add(lhs: Point, rhs: Point): Point {
+export function add(lhs: TimePoint, rhs: TimePoint): TimePoint {
   if (lhs === INVALID || rhs === INVALID) return INVALID;
   const tis = (lhs.hours * 60 + lhs.minutes) * 60 + lhs.seconds;
   const otis = (rhs.hours * 60 + rhs.minutes) * 60 + rhs.seconds;
@@ -65,11 +65,11 @@ export function add(lhs: Point, rhs: Point): Point {
     hours: hours,
     minutes: minutes,
     seconds: seconds,
-    relative: Relative.NONE,
+    offset: Offset.NONE,
   };
 }
 
-export const subtract = (lhs: Point, rhs: Point): Point => {
+export const subtract = (lhs: TimePoint, rhs: TimePoint): TimePoint => {
   if (lhs === INVALID || rhs === INVALID) return INVALID;
   const tis = (lhs.hours * 60 + lhs.minutes) * 60 + lhs.seconds;
   const otis = (rhs.hours * 60 + rhs.minutes) * 60 + rhs.seconds;
@@ -82,35 +82,35 @@ export const subtract = (lhs: Point, rhs: Point): Point => {
     hours: hours,
     minutes: minutes,
     seconds: seconds,
-    relative: Relative.NONE,
+    offset: Offset.NONE,
   };
 };
 
-export function stringify(point: Point): string {
+export function stringify(point: TimePoint): string {
   const zeroPad = (num: number, places: number): string => {
     return String(num).padStart(places, "0");
   };
   if (equals(point, INVALID)) return "--:--:--";
-  return `${point.relative}${zeroPad(point.hours, 2)}:${zeroPad(
+  return `${point.offset}${zeroPad(point.hours, 2)}:${zeroPad(
     point.minutes,
     2
   )}:${zeroPad(point.seconds, 2)}`;
 }
 
-export function parse(str: string): Point {
+export function parse(str: string): TimePoint {
   if (str === "--:--:--") return INVALID;
-  let relative: Relative;
-  if (str.charAt(0) === Relative.START || str.charAt(0) === Relative.END) {
-    relative = str.charAt(0) as Relative;
+  let offset: Offset;
+  if (str.charAt(0) === Offset.START || str.charAt(0) === Offset.END) {
+    offset = str.charAt(0) as Offset;
     str = str.slice(0);
-  } else relative = Relative.NONE;
+  } else offset = Offset.NONE;
   const values: string[] = str.split(":");
   return {
     hours: Number.parseInt(values[0]),
     minutes: Number.parseInt(values[1]),
     seconds: Number.parseInt(values[2]),
-    relative: relative,
+    offset: offset,
   };
 }
 
-export default Point;
+export default TimePoint;

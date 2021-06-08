@@ -1,5 +1,6 @@
 import IJson from "./IJson";
 import { Show, SHOW_JSON } from "./Show";
+import StagePlot from "./stageplot/StagePlot";
 import Storage, { Type } from "./Storage";
 import {
   Bracket,
@@ -16,6 +17,7 @@ export interface Runsheet {
   display: string;
   shows: Map<string, Show>;
   index: string[];
+  stageplots: Map<string,StagePlot>;
   defaults: Map<string, Storage<any>>;
 }
 
@@ -77,6 +79,7 @@ export const JSON: IJson<Runsheet> = {
       display: json.display,
       index: index,
       shows: shows,
+      stageplots: new Map<string,StagePlot>(),
       defaults: defaults,
     };
   },
