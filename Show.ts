@@ -138,6 +138,10 @@ export function deleteOverrideProperty(
   }
 }
 
+export function deleteOverrideProperties(show:Show,id:string) : void {
+  show.overrides.delete(id);
+}
+
 export const DEFAULT = {
   id: "default",
   tracking_list: [],

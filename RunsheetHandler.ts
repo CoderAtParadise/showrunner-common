@@ -7,6 +7,8 @@ import Runsheet from "./Runsheet";
 
 export interface RunsheetHandler {
    setRunsheet: (runsheet:Runsheet) => void;
+   dirty: () => boolean;
+   markDirty: () => void;
    hasLoadedRunsheet: () => boolean;
    getClock: (id:string) => ClockSource | undefined;
    addClock: (clock:ClockSource) => void;
