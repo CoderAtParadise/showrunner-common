@@ -1,8 +1,7 @@
 import IJson from "./IJson";
 import { IndexListProperty } from "./property/IndexList";
 import IProperty, { getPropertyJSON } from "./property/IProperty";
-import Runsheet from "./Runsheet";
-import Storage, { getDefaultProperty, Type } from "./Storage";
+import Storage, { getDefaultProperty } from "./Storage";
 
 export interface Show {
   id: string;
