@@ -14,6 +14,7 @@ export interface RunsheetHandler {
    addClock: (clock:ClockSource) => void;
    getShow: (id:string) => Show | undefined;
    addShow: (show:Show) => void;
+   sessionList: (show:string) => string[];
    deleteShow: (id:string) => void;
    getTrackingShow: (id:string) => TrackingShow | undefined;
    addTrackingShow: (trackingShow:TrackingShow) => void;
