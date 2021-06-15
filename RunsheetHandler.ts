@@ -14,11 +14,12 @@ export interface RunsheetHandler {
    addClock: (clock:ClockSource) => void;
    getShow: (id:string) => Show | undefined;
    addShow: (show:Show) => void;
-   sessionList: (show:string) => string[];
    deleteShow: (id:string) => void;
+   showList: () => string[];
    getTrackingShow: (id:string) => TrackingShow | undefined;
    addTrackingShow: (trackingShow:TrackingShow) => void;
    deleteTrackingSHow: (id:string) => void;
+   sessionList: (show:string) => string[];
    getStorage: (id:string) => Storage<any> | undefined;
    addStorage: (storage:Storage<any>) => void;
    deleteStorage: (id:string) => void;

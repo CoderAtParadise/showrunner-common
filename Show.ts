@@ -10,17 +10,6 @@ export interface Show {
   overrides: Map<string, IProperty<any>[]>;
 }
 
-export function getAllSessions(runsheet: Runsheet, show: Show): Storage<any>[] {
-  const sessions: Storage<any>[] = [];
-  show.tracking_list.forEach((id: string) => {
-    const storage = runsheet.defaults.get(id);
-    if (storage) {
-      if (storage.type === Type.SESSION) sessions.push(storage);
-    }
-  });
-  return sessions;
-}
-
 export function hasOverrideProperty(
   show: Show,
   id: string,
