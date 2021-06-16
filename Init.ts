@@ -1,3 +1,4 @@
+/* eslint-disable */
 import registerPropertyDisplay from "./property/Display";
 import registerPropertyDisabled from "./property/Disabled";
 import registerPropertySave from "./property/Save";
