@@ -19,7 +19,6 @@ export interface RunsheetHandler {
    getTrackingShow: (id:string) => TrackingShow | undefined;
    addTrackingShow: (trackingShow:TrackingShow) => void;
    deleteTrackingShow: (id:string) => void;
-   sessionList: (show:string) => string[];
    getStorage: (id:string) => Storage<any> | undefined;
    addStorage: (storage:Storage<any>) => void;
    deleteStorage: (id:string) => void;

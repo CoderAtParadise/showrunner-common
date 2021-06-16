@@ -5,6 +5,7 @@ import Storage, { getDefaultProperty } from "./Storage";
 
 export interface Show {
   id: string;
+  session: string;
   tracking_list: string[];
   overrides: Map<string, IProperty<any>[]>;
 }
@@ -70,7 +71,7 @@ export function insertInto(
         if (index === -1) index = children.value.length;
         children.value.splice(index + 1, 0, insert);
       }
-    } else if(after !== "") {
+    } else if (after !== "") {
       const children = JSON.parse(
         JSON.stringify(
           getDefaultProperty(parent, "index_list") as IndexListProperty
@@ -126,12 +127,13 @@ export function deleteOverrideProperty(
   }
 }
 
-export function deleteOverrideProperties(show:Show,id:string) : void {
+export function deleteOverrideProperties(show: Show, id: string): void {
   show.overrides.delete(id);
 }
 
 export const DEFAULT = {
   id: "default",
+  session: "",
   tracking_list: [],
   overrides: new Map<string, IProperty<any>[]>(),
 };
@@ -151,6 +153,7 @@ export const SHOW_JSON: IJson<Show> = {
     });
     return {
       id: value.id,
+      session: value.session,
       tracking_list: value.tracking_list,
       overrides: overrides,
     };
@@ -177,6 +180,7 @@ export const SHOW_JSON: IJson<Show> = {
     });
     return {
       id: json.id,
+      session: json.session,
       tracking_list: json.tracking_list,
       overrides: overrides,
     };
