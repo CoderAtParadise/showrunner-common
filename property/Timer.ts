@@ -1,11 +1,8 @@
 import {
   Settings as TimerValue,
-  Type,
-  Behaviour,
   INVALID_SETTINGS,
   SETTINGS_JSON,
 } from "../Timer";
-import { parse, stringify } from "../TimePoint";
 import IJson from "../IJson";
 import { registerPropertyJSON } from "./IProperty";
 
@@ -23,8 +20,8 @@ const JSON: IJson<TimerProperty> = {
     };
   },
   deserialize: (json: any): TimerProperty => {
-    return { key: "timer", value: SETTINGS_JSON.deserialize(json) }
+    return { key: "timer", value: SETTINGS_JSON.deserialize(json) };
   },
 };
 
-export default registerPropertyJSON("timer",JSON);
+export default registerPropertyJSON("timer", JSON);

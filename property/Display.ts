@@ -1,4 +1,3 @@
-import exp from "constants";
 import IJson from "../IJson";
 import { registerPropertyJSON } from "./IProperty";
 
@@ -6,7 +5,7 @@ export type DisplayProperty = { key: "display"; value: string };
 
 export const INVALID: DisplayProperty = {
   key: "display",
-  value: ""
+  value: "",
 };
 
 const JSON: IJson<DisplayProperty> = {
@@ -18,4 +17,4 @@ const JSON: IJson<DisplayProperty> = {
   },
 };
 
-export default registerPropertyJSON("display",JSON);
+export default registerPropertyJSON("display", JSON);
