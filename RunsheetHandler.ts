@@ -16,6 +16,8 @@ export interface RunsheetHandler {
    addShow: (show:Show) => void;
    deleteShow: (id:string) => void;
    showList: () => string[];
+   activeShow: () => string;
+   setActiveShow: (id:string) => void;
    getTrackingShow: (id:string) => TrackingShow | undefined;
    addTrackingShow: (trackingShow:TrackingShow) => void;
    deleteTrackingShow: (id:string) => void;
