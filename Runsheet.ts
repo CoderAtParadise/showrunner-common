@@ -21,6 +21,16 @@ export interface Runsheet {
   defaults: Map<string, Storage<any>>;
 }
 
+export const INVALID : Runsheet =  {
+  version: -1,
+  id: "",
+  display: "",
+  shows:new Map<string,Show>(),
+  index: [],
+  stageplots: new Map<string,StagePlot>(),
+  defaults: new Map<string,Storage<any>>()
+}
+
 export const JSON: IJson<Runsheet> = {
   serialize: (value: Runsheet): object => {
     const shows: object[] = [];
