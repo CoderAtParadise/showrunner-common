@@ -107,7 +107,7 @@ export const SESSION_JSON: IJson<Session> = {
           properties: props as SessionProperties,
         };
     }
-    throw {err:`Failed to deserialize ${JSON.stringify(json)} as Session`};
+    throw Error(`Failed to deserialize ${JSON.stringify(json)} as Session`);
   },
 };
 
@@ -137,7 +137,7 @@ export const BRACKET_JSON: IJson<Bracket> = {
           properties: props as BracketProperties,
         };
     }
-    throw {err:`Failed to deserialize ${JSON.stringify(json)} as Bracket`};
+    throw Error(`Failed to deserialize ${JSON.stringify(json)} as Bracket`);
   },
 };
 
@@ -167,6 +167,6 @@ export const ITEM_JSON: IJson<Item> = {
           properties: props as ItemProperties,
         };
     }
-    throw {err:`Failed to deserialize ${JSON.stringify(json)} as Item`};
+    throw Error(`Failed to deserialize ${JSON.stringify(json)} as Item`);
   },
 };
