@@ -5,6 +5,7 @@ import TrackingShow from "./TrackingShow";
 import StagePlot from "./stageplot/StagePlot";
 
 export interface RunsheetHandler {
+   id: () => string;
    hasLoadedRunsheet: () => boolean;
    getClock: (id:string) => ClockSource | undefined;
    addClock: (clock:ClockSource) => void;
