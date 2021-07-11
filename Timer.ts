@@ -5,6 +5,7 @@ export enum Behaviour {
   STOP = "stop",
   HIDE = "hide",
   OVERRUN = "overrun",
+  LOOP = "loop"
 }
 
 export enum Type {
