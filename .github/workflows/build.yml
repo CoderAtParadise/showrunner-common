@@ -1,24 +1,23 @@
 name: Node.js CI
-
 on:
- push:
+  push:
     tags:
       - "*.*.*"
   workflow_dispatch:
 jobs:
-build:
-  runs-on: ubuntu-latest
-  permissions:
-    contents: read
-    packages: write
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-    - uses: actions/checkout@v2
-    #Setup .npmrc file to publish to GitHub Packages
-    - uses: actions/setup-node@v2
-      node-version: '16.x'
-      registry: 'https://npm.pkg.github.com'
-      scope: '@coderatparadise'
-    - run: yarn
-    - run: yarn publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - uses: actions/checkout@v2
+      #Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v2
+        node-version: '16.x'
+        registry: 'https://npm.pkg.github.com'
+        scope: '@coderatparadise'
+      - run: yarn
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
