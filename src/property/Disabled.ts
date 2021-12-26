@@ -1,11 +1,12 @@
-import IJson from "../IJson";
+import IJson from "../../IJson";
 import { registerPropertyJSON } from "./IProperty";
 
-export type DisabledProperty = { key: "disabled"; value: boolean };
+export type DisabledProperty = { key: "disabled"; value: boolean;canOverride: boolean; };
 
 export const INVALID: DisabledProperty = {
   key: "disabled",
   value: false,
+  canOverride: true,
 };
 
 const JSON: IJson<DisabledProperty> = {
@@ -13,7 +14,7 @@ const JSON: IJson<DisabledProperty> = {
     return { disabled: property.value };
   },
   deserialize: (json: any): DisabledProperty => {
-    return { key: "disabled", value: json as boolean };
+    return { key: "disabled", value: json as boolean ,canOverride:true};
   },
 };
 

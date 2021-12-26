@@ -1,6 +1,6 @@
 import IJson from "./IJson";
 import { Show, SHOW_JSON } from "./Show";
-import StagePlot from "./stageplot/StagePlot";
+import StagePlot from "./src/stageplot/StagePlot";
 import Storage, { Type } from "./Storage";
 import {
   Bracket,

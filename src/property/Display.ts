@@ -1,11 +1,12 @@
-import IJson from "../IJson";
+import IJson from "../../IJson";
 import { registerPropertyJSON } from "./IProperty";
 
-export type DisplayProperty = { key: "display"; value: string };
+export type DisplayProperty = { key: "display"; value: string,canOverride: boolean; };
 
 export const INVALID: DisplayProperty = {
   key: "display",
   value: "",
+  canOverride: true
 };
 
 const JSON: IJson<DisplayProperty> = {
@@ -13,7 +14,7 @@ const JSON: IJson<DisplayProperty> = {
     return { display: property.value };
   },
   deserialize: (json: any): DisplayProperty => {
-    return { key: "display", value: json as string };
+    return { key: "display", value: json as string,canOverride:true };
   },
 };
 

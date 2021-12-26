@@ -1,6 +1,6 @@
 import IJson from "./IJson";
 import { Timer, TimerState, TIMER_JSON } from "./Timer";
-import { INVALID } from "./TimePoint";
+import { INVALID } from "./SMPTE";
 
 export interface Tracker {
   id: string;
@@ -13,8 +13,8 @@ export function buildTracker(id: string): Tracker {
     timer: {
       start: INVALID,
       end: INVALID,
-      state: TimerState.STOPPED,
-    },
+      state: TimerState.STOPPED
+    }
   };
 }
 
@@ -24,7 +24,7 @@ export const JSON: IJson<Tracker> = {
   },
   deserialize: (json: any): Tracker => {
     return { id: json.id, timer: TIMER_JSON.deserialize(json.timer) };
-  },
+  }
 };
 
 export default Tracker;

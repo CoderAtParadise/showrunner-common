@@ -1,5 +1,5 @@
 import StagePlot from "../../stageplot/StagePlot";
-import IJson from "../../IJson";
+import IJson from "../../../IJson";
 import { registerPropertyJSON } from "../IProperty";
 
 export type StagePlotProperty = { key: "stageplot"; value: string };

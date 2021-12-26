@@ -1,5 +1,5 @@
 import IJson from "./IJson";
-import { TimePoint, stringify, parse, INVALID as INVALID_POINT } from "./TimePoint";
+import { SMPTE, INVALID as INVALID_SMPTE } from "./SMPTE";
 
 export enum Behaviour {
   STOP = "stop",
@@ -14,7 +14,7 @@ export enum Type {
 }
 
 export interface Settings {
-  duration: TimePoint;
+  duration: SMPTE;
   source: string;
   behaviour: Behaviour;
   type: Type;
@@ -28,8 +28,8 @@ export enum TimerState {
 }
 
 export interface Timer {
-  start: TimePoint;
-  end: TimePoint;
+  start: SMPTE;
+  end: SMPTE;
   state: TimerState;
 }
 
@@ -37,14 +37,14 @@ export const INVALID_SETTINGS : Settings = {
   type: Type.COUNTDOWN,
   source: "invalid",
   behaviour: Behaviour.HIDE,
-  duration: INVALID_POINT,
+  duration: INVALID_SMPTE,
 }
 
 export const TIMER_JSON: IJson<Timer> = {
   serialize(value: Timer): object {
     return {
-      start: stringify(value.start),
-      end: stringify(value.end),
+      start: value.start.toString(),
+      end: value.end.toString(),
       state: value.state as TimerState,
     };
   },
@@ -55,8 +55,8 @@ export const TIMER_JSON: IJson<Timer> = {
       state: string;
     };
     return {
-      start: parse(value.start),
-      end: parse(value.end),
+      start: new SMPTE(value.start),
+      end: new SMPTE(value.end),
       state: value.state as TimerState,
     };
   },
@@ -68,10 +68,9 @@ export const SETTINGS_JSON: IJson<Settings> = {
       type: value.type as string,
       behaviour: value.behaviour as string,
       source: value.source,
-      duration: stringify(value.duration),
+      duration: value.duration.toString(),
     };
   },
-
   deserialize(json: object): Settings {
     const value = json as {
       type: string;
@@ -83,9 +82,9 @@ export const SETTINGS_JSON: IJson<Settings> = {
       type: value.type as Type,
       source: value.source,
       behaviour: value.behaviour as Behaviour,
-      duration: parse(value.duration),
+      duration: new SMPTE(value.duration),
     };
-  },
+  }
 };
 
 export default Timer;

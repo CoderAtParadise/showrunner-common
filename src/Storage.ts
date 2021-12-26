@@ -35,7 +35,7 @@ export function getDefaultProperty(storage: Storage<any>, key: string): IPropert
       (property: IProperty<any>) => property.key === key
     );
   }
-  return undefined
+  return undefined;
 }
 
 export function setDefaultProperty(storage: Storage<any>, property: IProperty<any>): void {

@@ -2,7 +2,6 @@ import ClockSource from "./ClockSource";
 import Show from "./Show";
 import Storage from "./Storage"
 import TrackingShow from "./TrackingShow";
-import StagePlot from "./stageplot/StagePlot";
 
 export interface RunsheetHandler {
    id: () => string;

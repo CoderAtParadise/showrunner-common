@@ -1,4 +1,4 @@
-import IJson from "../../IJson";
+import IJson from "../../../IJson";
 import TimePoint, {INVALID as INVALID_POINT,stringify,parse} from "../../TimePoint";
 import { registerPropertyJSON } from "../IProperty";
 

@@ -1,12 +1,13 @@
-import IJson from "../IJson";
+import IJson from "../../IJson";
 import { registerPropertyJSON } from "./IProperty";
-import Direction,{JSON as DJSON} from "../Direction";
+import Direction,{JSON as DJSON} from "../../Direction";
 
-export type DirectionsProperty = { key: "directions"; value:Direction<any>[] };
+export type DirectionsProperty = { key: "directions"; value:Direction<any>[];canOverride: boolean; };
 
 export const INVALID: DirectionsProperty = {
   key: "directions",
   value: [],
+  canOverride: false
 };
 
 const JSON: IJson<DirectionsProperty> = {
@@ -22,7 +23,7 @@ const JSON: IJson<DirectionsProperty> = {
     (json as object[]).forEach((value: object) =>
       directions.push(DJSON.deserialize(value))
     );
-    return { key: "directions", value: directions };
+    return { key: "directions", value: directions,canOverride:true };
   },
 };
 

@@ -1,0 +1,32 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "eslint-plugin-tsdoc"
+    ],
+    "rules": {
+        "tsdoc/syntax": "warn",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "semi": ["error","always"],
+        "quotes": ["warn","double"],
+        "curly":["warn","multi-or-nest"],
+        "space-before-function-paren":["warn",{
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "always"
+        }]
+    }
+}

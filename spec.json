@@ -18,7 +18,7 @@
       "overrides": [
         {
           "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
-          "start_time": "08:00:00"
+          "start_time": "08:00:00:00"
         },
         {
           "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
@@ -45,7 +45,7 @@
       "overrides": [
         {
           "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
-          "start_time": "10:00:00"
+          "start_time": "10:00:00:00"
         },
         {
           "id": "a91b219b-f292-4dfa-aae9-8a5e80ece795",
@@ -61,7 +61,7 @@
       "display": "Service",
       "disabled": false,
       "save": true,
-      "start_time": "08:00:00",
+      "start_time": "08:00:00:00",
       "index_list": [
         "1d7db0a7-7787-444a-bbd7-6efbeb7041cf",
         "4ad398b7-e3e1-4dd7-94b6-02a943cc3c8f"
@@ -70,7 +70,7 @@
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
-        "duration": "01:20:00"
+        "duration": "01:20:00:00"
       },
       "directions": []
     },
@@ -85,7 +85,7 @@
         "type": "countdown",
         "source": "internal",
         "behaviour": "stop",
-        "duration": "00:05:00"
+        "duration": "00:05:00:00"
       },
       "directions": [
       ]
@@ -100,7 +100,7 @@
         "type": "countdown",
         "source": "internal",
         "behaviour": "stop",
-        "duration": "00:04:30"
+        "duration": "00:04:30:00"
       },
       "directions": []
     },
@@ -118,7 +118,7 @@
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
-        "duration": "00:20:00"
+        "duration": "00:20:00:00"
       },
       "directions": []
     },
@@ -132,7 +132,7 @@
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
-        "duration": "00:05:00"
+        "duration": "00:05:00:00"
       },
       "directions": []
     },
@@ -146,7 +146,7 @@
         "type": "elapsed",
         "source": "internal",
         "behaviour": "overrun",
-        "duration": "00:05:00"
+        "duration": "00:05:00:00"
       },
       "directions": []
     }

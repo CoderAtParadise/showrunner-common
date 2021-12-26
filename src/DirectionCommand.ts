@@ -1,4 +1,4 @@
-import IProperty from "./property/IProperty";
+import IProperty from "./src/property/IProperty";
 import Direction from "./Direction";
 import RunsheetHandler from "./RunsheetHandler";
 

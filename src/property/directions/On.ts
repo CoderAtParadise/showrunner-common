@@ -1,4 +1,4 @@
-import IJson from "../../IJson";
+import IJson from "../../../IJson";
 import { registerPropertyJSON } from "../IProperty";
 
 export type OnProperty = { key: "on"; value: string };

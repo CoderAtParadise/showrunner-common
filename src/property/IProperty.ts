@@ -1,13 +1,15 @@
-import IJson from "../IJson";
+import IJson from "../../IJson";
 
 export interface IProperty<Value> {
   key: string;
   value: Value;
+  canOverride: boolean;
 }
 
 export const INVALID: IProperty<undefined> = {
   key: "invalid",
   value: undefined,
+  canOverride: false
 };
 
 const INVALID_JSON: IJson<IProperty<undefined>> = {
