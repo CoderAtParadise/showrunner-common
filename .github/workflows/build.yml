@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Publish Showrunner Common
 on:
   push:
     tags:
@@ -14,9 +14,10 @@ jobs:
       - uses: actions/checkout@v2
       #Setup .npmrc file to publish to GitHub Packages
       - uses: actions/setup-node@v2
-        node-version: '16.x'
-        registry: 'https://npm.pkg.github.com'
-        scope: '@coderatparadise'
+        with:
+          node-version: '16.x'
+          registry: 'https://npm.pkg.github.com'
+          scope: '@coderatparadise'
       - run: yarn
       - run: yarn publish
         env:
