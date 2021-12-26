@@ -32,7 +32,7 @@ jobs:
              ${{ runner.os }}-yarn-
       - run: |
           echo '::echo::on'
-          echo "::set-output scope=::$(yarn config get npmScopes)"
+          echo "::set-output name=scope::$(yarn config get npmScopes)"
       - name: Setup .yarnrc.yml
         run: |
             yarn config set npmScopes.coderatparadise.npmAuthToken $NODE_AUTH_TOKEN
@@ -40,7 +40,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: |
           echo '::echo::on'
-          echo "::set-output scope=::$(yarn config get npmScopes)"
+          echo "::set-output name=scope::$(yarn config get npmScopes)"
       - run: yarn
       - run: yarn lint
       - run: yarn build
