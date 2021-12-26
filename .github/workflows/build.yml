@@ -18,7 +18,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@coderatparadise'
-      - run: npm
+      - run: yarn
       - run: yarn build
       - run: yarn publish
         env:
