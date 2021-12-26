@@ -28,6 +28,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@coderatparadise/showrunner-common@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@coderatparadise/showrunner-common@workspace:."
+  dependencies:
+    "@types/eslint": ^8
+    "@types/prettier": ^2
+    "@typescript-eslint/eslint-plugin": ^5.8.0
+    "@typescript-eslint/parser": ^5.8.0
+    "@yarnpkg/sdks": ^2.5.1-rc.6
+    eslint: ^8.5.0
+    eslint-config-standard: ^16.0.3
+    eslint-import-resolver-node: ^0.3.6
+    eslint-plugin-import: ^2.25.3
+    eslint-plugin-node: ^11.1.0
+    eslint-plugin-promise: ^6.0.0
+    eslint-plugin-tsdoc: ^0.2.14
+    prettier: ^2.5.1
+    typescript: ^4.5.4
+  languageName: unknown
+  linkType: soft
+
 "@eslint/eslintrc@npm:^1.0.5":
   version: 1.0.5
   resolution: "@eslint/eslintrc@npm:1.0.5"
@@ -2452,27 +2473,6 @@ __metadata:
   checksum: 1a2bcae50de99034fcd92ad4212d8e01eedf52c7ec7830eedcf886622804fe36884278f2be8be0ea5fde3fd1c23911643a4e0f726c8685b61871c8908af01222
   languageName: node
   linkType: hard
-
-"showrunner-common@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "showrunner-common@workspace:."
-  dependencies:
-    "@types/eslint": ^8
-    "@types/prettier": ^2
-    "@typescript-eslint/eslint-plugin": ^5.8.0
-    "@typescript-eslint/parser": ^5.8.0
-    "@yarnpkg/sdks": ^2.5.1-rc.6
-    eslint: ^8.5.0
-    eslint-config-standard: ^16.0.3
-    eslint-import-resolver-node: ^0.3.6
-    eslint-plugin-import: ^2.25.3
-    eslint-plugin-node: ^11.1.0
-    eslint-plugin-promise: ^6.0.0
-    eslint-plugin-tsdoc: ^0.2.14
-    prettier: ^2.5.1
-    typescript: ^4.5.4
-  languageName: unknown
-  linkType: soft
 
 "side-channel@npm:^1.0.4":
   version: 1.0.4
