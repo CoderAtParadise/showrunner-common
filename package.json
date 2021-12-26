@@ -3,7 +3,7 @@
   "version": "0.5.3",
   "description": "Shared library for showrunner",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
