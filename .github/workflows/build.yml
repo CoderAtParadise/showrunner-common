@@ -18,7 +18,8 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@coderatparadise'
-      - run: npm ci
-      - run: npm publish
+      - run: npm
+      - run: yarn build
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
