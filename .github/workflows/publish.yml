@@ -32,7 +32,7 @@ jobs:
              ${{ runner.os }}-yarn-
       - name: Setup .yarnrc.yml
         run: |
-            yarn config set npmAuthToken $NODE_AUTH_TOKEN
+            yarn config set npmScopes.coderatparadies.npmAuthToken $NODE_AUTH_TOKEN
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: yarn

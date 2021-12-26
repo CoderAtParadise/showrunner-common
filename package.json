@@ -1,5 +1,6 @@
 {
   "name": "showrunner-common",
+  "version": "0.5.3",
   "packageManager": "yarn@3.1.1",
   "main": "/dist/index.js",
   "types": "/dist/index.d.js",
@@ -9,7 +10,7 @@
   },
   "type": "module",
   "repository": "https://github.com/CoderAtParadise/showrunner-common.git",
-  "author": "CoderAtParadise dawn0966@gmail.com",
+  "author": "CoderAtParadise <dawn0966@gmail.com>",
   "devDependencies": {
     "@types/eslint": "^8",
     "@types/prettier": "^2",
