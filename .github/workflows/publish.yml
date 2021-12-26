@@ -30,11 +30,13 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
              ${{ runner.os }}-yarn-
+      - run: echo yarn config get npmScopes
       - name: Setup .yarnrc.yml
         run: |
             yarn config set npmScopes.coderatparadise.npmAuthToken $NODE_AUTH_TOKEN
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: echo yarn config get npmScopes
       - run: yarn
       - run: yarn lint
       - run: yarn build
