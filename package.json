@@ -1,18 +1,30 @@
 {
   "name": "@coderatparadise/showrunner-common",
-  "version": "0.5.3",
+  "version": "0.0.1",
   "packageManager": "yarn@3.1.1",
   "main": "/dist/index.js",
-  "types": "/dist/index.d.js",
-  "scripts": {
-    "lint": "yarn eslint src/**/*.ts",
-    "build": "tsc"
+  "types": "/dist/index.d.ts",
+  "engines": {
+    "node": ">=16.0.0"
   },
-  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "yarn eslint src/**/*.ts",
+    "format": "yarn prettier --write 'index.ts' 'src/**/*.ts'"
+  },
   "repository": "https://github.com/CoderAtParadise/showrunner-common.git",
   "author": "CoderAtParadise <dawn0966@gmail.com>",
+  "publishConfig": {
+    "access": "public",
+    "main": "/index.js",
+    "types": "/index.d.js"
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "devDependencies": {
     "@types/eslint": "^8",
+    "@types/node": "^17.0.5",
     "@types/prettier": "^2",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
@@ -25,6 +37,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
 }
