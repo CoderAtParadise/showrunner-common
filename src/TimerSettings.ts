@@ -4,19 +4,17 @@ export enum Behaviour {
     STOP = "stop",
     HIDE = "hide",
     OVERRUN = "overrun",
-    LOOP = "loop"
 }
 
-export enum Type {
+export enum Direction {
     COUNTDOWN = "countdown",
-    ELAPSED = "elapsed"
+    COUNTUP = "countup"
 }
 
 export interface TimerSettings {
-    authority: string;
-    type: Type;
+    direction: Direction;
     behaviour: Behaviour;
     duration: SMPTE;
 }
 
-export default { Behaviour, Type };
+export default { Behaviour, Direction };

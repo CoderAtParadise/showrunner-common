@@ -1,5 +1,21 @@
-import { SMPTE } from "./src/SMPTE";
-import { ClockSource } from "./src/ClockSource";
-import { TimerClockSource } from "./src/TimerClockSource";
+import { SMPTE, Offset } from "./src/SMPTE";
+import { ClockSource, MutableClockSource, ClockState } from "./src/ClockSource";
 import { TimerSettings } from "./src/TimerSettings";
-export { SMPTE, ClockSource, TimerClockSource, TimerSettings };
+import { ShowHandler } from "./src/ShowHandler";
+import {
+    FallbackSyncClockSource,
+    getSyncClock,
+    setSyncClock
+} from "./src/SyncClock";
+export {
+    SMPTE,
+    Offset,
+    ClockSource,
+    MutableClockSource,
+    ClockState,
+    TimerSettings,
+    ShowHandler,
+    FallbackSyncClockSource,
+    getSyncClock,
+    setSyncClock
+};

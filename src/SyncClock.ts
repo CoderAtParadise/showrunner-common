@@ -1,13 +1,30 @@
-import { ClockSource } from "./ClockSource";
+import { ClockSource, ClockState } from "./ClockSource";
 import { SMPTE } from "./SMPTE";
 
 export const FallbackSyncClockSource: ClockSource = {
-    id: "server_fallback",
-    clock(): SMPTE {
+    id: "fallback",
+    display: "Sync Clock",
+    state: ClockState.RUNNING,
+    current(): SMPTE {
         return new SMPTE(new Date());
     },
     data(): object | undefined {
         return undefined;
+    },
+    start(): void {
+        // NOOP
+    },
+    pause(): void {
+        // NOOP
+    },
+    stop(): void {
+        // NOOP
+    },
+    reset(): void {
+        // NOOP
+    },
+    update(): void {
+        // NOOP
     }
 };
 
@@ -21,4 +38,4 @@ export const setSyncClock = (clock: ClockSource): void => {
     syncClock = clock;
 };
 
-export default { syncClock, getSyncClock, setSyncClock };
+export default { FallbackSyncClockSource, getSyncClock, setSyncClock };

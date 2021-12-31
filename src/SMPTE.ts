@@ -1,6 +1,7 @@
 /**
  * Enum containng an easy to access list of
  * all valid Framrates
+ * @public
  */
 export enum Framerate {
     F2397 = 23.976,
@@ -13,7 +14,9 @@ export enum Framerate {
     F60 = 60,
     F1000 = 1000
 }
-
+/**
+ * @public
+ */
 export enum Offset {
     NONE = "",
     START = "+",
@@ -21,7 +24,7 @@ export enum Offset {
 }
 
 const generateMaxFrameCount = (): Map<Framerate, number> => {
-    let map: Map<Framerate, number> = new Map<Framerate, number>();
+    const map: Map<Framerate, number> = new Map<Framerate, number>();
     Object.values(Framerate).forEach((value: string | Framerate) => {
         map.set(value as Framerate, calcMaxFrameCount(value as Framerate));
     });
@@ -36,10 +39,11 @@ const MaxFrameCount: Map<Framerate, number> = generateMaxFrameCount();
 
 /**
  * SMPTE with support for offset time
+ * @public
  */
 export class SMPTE {
     constructor(
-        timecode?: number | String | SMPTE | Date,
+        timecode?: number | string | SMPTE | Date,
         frameRate: number = Framerate.F25,
         dropFrame: boolean = !!(
             frameRate === Framerate.F2997 || frameRate === Framerate.F5994
@@ -51,14 +55,14 @@ export class SMPTE {
         this.mDropFrame = dropFrame;
         this.mOffset = offset;
         this.mFrameCount = 0;
-        if (timecode instanceof String || typeof timecode === "string") {
+        if (typeof timecode === "string") {
             if (timecode === "--:--:--:--") {
                 this.mHours = -1;
                 this.mMinutes = -1;
                 this.mSeconds = -1;
                 this.mFrames = -1;
             } else {
-                const parts = timecode.match(
+                const parts = (timecode as String).match(
                     "^(\\+|\\-)?([012][0-9]):([0-9][0-9]):([0-9][0-9])(:|;|\\.)([0-9][0-9])$"
                 );
                 if (!parts) {
@@ -127,20 +131,24 @@ export class SMPTE {
         this.validate();
     }
 
-    greaterThan(other: SMPTE): boolean {
-        return this.valueOf() > other.valueOf();
+    greaterThanOrEqual(other: SMPTE): boolean {
+        return this.valueOf() >= this.convert(other).valueOf();
     }
+    
 
     equals(other: SMPTE): boolean {
-        return this.valueOf() === other.valueOf();
+        return this.valueOf() === this.convert(other).valueOf();
     }
 
     add(other: SMPTE): SMPTE {
-        return new SMPTE(this.valueOf() + other.valueOf());
+        return new SMPTE(
+            this.valueOf() + this.convert(other).valueOf(),
+            this.frameRate()
+        );
     }
 
     subtract(other: SMPTE): SMPTE {
-        return new SMPTE(this.valueOf() - other.valueOf());
+        return new SMPTE(this.valueOf() - this.convert(other).valueOf(), this.frameRate());
     }
 
     toString(): string {
@@ -192,6 +200,12 @@ export class SMPTE {
 
     offset(): Offset {
         return this.mOffset;
+    }
+
+    private convert(other: SMPTE) {
+        other.mFrameRate = this.frameRate();
+        other.calculateFrameCount();
+        return other;
     }
 
     private calculateTimeCode(): void {

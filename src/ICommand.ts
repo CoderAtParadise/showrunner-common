@@ -1,7 +1,9 @@
+import { ShowHandler } from "./ShowHandler";
+
 export interface ICommand<Data> {
     id: string;
     validate: (data?: any) => boolean;
-    run: (handler: any, data?: Data) => void; // TODO: change handler type to actual type
+    run: (handler: ShowHandler, data?: Data) => void; // TODO: change handler type to actual type
 }
 
 const CommandRegistry = new Map<string, ICommand<any>>();
@@ -11,10 +13,14 @@ export function registerCommand<Data>(command: ICommand<Data>): void {
         CommandRegistry.set(command.id, command);
 }
 
-export function executeCommand(handler: any, id: string, data?: any): boolean {
+export function executeCommand(
+    handler: ShowHandler,
+    id: string,
+    data?: any
+): boolean {
     const command = CommandRegistry.get(id);
     if (command && command.validate(data)) command.run(handler, data);
     return false;
 }
 
-export default ICommand;
+export default { registerCommand, executeCommand };
