@@ -134,7 +134,6 @@ export class SMPTE {
     greaterThanOrEqual(other: SMPTE): boolean {
         return this.valueOf() >= this.convert(other).valueOf();
     }
-    
 
     equals(other: SMPTE): boolean {
         return this.valueOf() === this.convert(other).valueOf();
@@ -204,6 +203,7 @@ export class SMPTE {
 
     private convert(other: SMPTE) {
         other.mFrameRate = this.frameRate();
+        other.mDropFrame = this.dropFrame();
         other.calculateFrameCount();
         return other;
     }
