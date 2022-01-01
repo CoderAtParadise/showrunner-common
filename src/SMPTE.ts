@@ -147,7 +147,10 @@ export class SMPTE {
     }
 
     subtract(other: SMPTE): SMPTE {
-        return new SMPTE(this.valueOf() - this.convert(other).valueOf(), this.frameRate());
+        return new SMPTE(
+            this.valueOf() - this.convert(other).valueOf(),
+            this.frameRate()
+        );
     }
 
     toString(): string {
@@ -201,11 +204,20 @@ export class SMPTE {
         return this.mOffset;
     }
 
-    private convert(other: SMPTE) {
-        other.mFrameRate = this.frameRate();
-        other.mDropFrame = this.dropFrame();
-        other.calculateFrameCount();
-        return other;
+    /**
+     * @remarks
+     * This is not the proper way to convert as it disregards frames
+     * but it's quick and dirty and currently we don't need frames.
+     *
+     * @param other - The SMPTE to convert
+     * @returns The converted SMPTE
+     */
+    private convert(other: SMPTE): SMPTE {
+        const convert = new SMPTE(other);
+        convert.mFrameRate = this.frameRate();
+        convert.mDropFrame = this.dropFrame();
+        convert.calculateFrameCount();
+        return convert;
     }
 
     private calculateTimeCode(): void {
