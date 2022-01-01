@@ -142,7 +142,8 @@ export class SMPTE {
     add(other: SMPTE): SMPTE {
         return new SMPTE(
             this.valueOf() + this.convert(other).valueOf(),
-            this.frameRate()
+            this.frameRate(),
+            this.dropFrame()
         );
     }
 
@@ -209,10 +210,6 @@ export class SMPTE {
     }
 
     /**
-     * @remarks
-     * This is not the proper way to convert as it disregards frames
-     * but it's quick and dirty and currently we don't need frames.
-     *
      * @param other - The SMPTE to convert
      * @returns The converted SMPTE
      */
@@ -220,8 +217,24 @@ export class SMPTE {
         const convert = new SMPTE(other);
         convert.mFrameRate = this.frameRate();
         convert.mDropFrame = this.dropFrame();
+        convert.mFrames = this.convertFrames(other);
         convert.calculateFrameCount();
         return convert;
+    }
+    /**
+     * Converts the frames from one framerate to another
+     * @param other - The SMPTE to convert
+     * @returns The converted number of frames
+     */
+    private convertFrames(other: SMPTE): number {
+        let multiplier: number = 1;
+        if (this.frameRate() > other.frameRate())
+            multiplier = other.frameRate() / this.frameRate();
+        else if (this.frameRate() < other.frameRate())
+            multiplier = this.frameRate() / other.frameRate();
+        let frames = other.frames() * multiplier;
+        if (!this.dropFrame()) frames = Math.round(frames);
+        return frames;
     }
 
     private calculateTimeCode(): void {
