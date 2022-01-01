@@ -204,6 +204,10 @@ export class SMPTE {
         return this.mOffset;
     }
 
+    setOffset(offset: Offset) {
+        this.mOffset = offset;
+    }
+
     /**
      * @remarks
      * This is not the proper way to convert as it disregards frames
