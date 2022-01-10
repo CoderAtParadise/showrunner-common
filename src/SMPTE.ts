@@ -131,8 +131,20 @@ export class SMPTE {
         this.validate();
     }
 
+    greaterThan(other: SMPTE): boolean {
+        return this.valueOf() > this.convert(other).valueOf();
+    }
+
     greaterThanOrEqual(other: SMPTE): boolean {
         return this.valueOf() >= this.convert(other).valueOf();
+    }
+
+    lessThan(other: SMPTE): boolean {
+        return this.valueOf() < this.convert(other).valueOf();
+    }
+
+    lessThanOrEqual(other: SMPTE): boolean {
+        return this.valueOf() <= this.convert(other).valueOf();
     }
 
     equals(other: SMPTE): boolean {
@@ -148,6 +160,8 @@ export class SMPTE {
     }
 
     subtract(other: SMPTE): SMPTE {
+        const a = this.convert(other).valueOf();
+        const c = this.valueOf() - a;
         return new SMPTE(
             this.valueOf() - this.convert(other).valueOf(),
             this.frameRate()
@@ -168,9 +182,7 @@ export class SMPTE {
     }
 
     valueOf(): number {
-        return this.offset() === Offset.END
-            ? -this.frameCount()
-            : this.frameCount();
+        return this.frameCount();
     }
 
     hours(): number {
@@ -221,6 +233,7 @@ export class SMPTE {
         convert.calculateFrameCount();
         return convert;
     }
+
     /**
      * Converts the frames from one framerate to another
      * @param other - The SMPTE to convert

@@ -2,6 +2,8 @@ import { ClockSource, ClockState } from "./ClockSource";
 import { SMPTE } from "./SMPTE";
 
 export const FallbackSyncClockSource: ClockSource = {
+    type: "sync",
+    owner: "system",
     id: "fallback",
     display: "Sync Clock",
     state: ClockState.RUNNING,

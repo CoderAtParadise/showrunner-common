@@ -9,6 +9,7 @@ export enum ClockState {
 }
 
 /**
+ * @param owner - The owner of the ClockSource
  * @param id - The unique id
  * @param display - Readable Name
  * @param state - The State currently in
@@ -20,7 +21,9 @@ export enum ClockState {
  * @param reset - A Callback to reset the clock
  */
 export interface ClockSource {
+    readonly owner: string;
     readonly id: string;
+    readonly type: string;
     display: string;
     state: ClockState;
     current: () => SMPTE;
