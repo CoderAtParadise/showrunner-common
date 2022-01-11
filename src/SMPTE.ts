@@ -160,8 +160,6 @@ export class SMPTE {
     }
 
     subtract(other: SMPTE): SMPTE {
-        const a = this.convert(other).valueOf();
-        const c = this.valueOf() - a;
         return new SMPTE(
             this.valueOf() - this.convert(other).valueOf(),
             this.frameRate()
