@@ -1,6 +1,6 @@
 import { SMPTE, Offset } from "./src/SMPTE";
 import { ClockSource, MutableClockSource, ClockState } from "./src/ClockSource";
-import { ShowHandler } from "./src/ShowHandler";
+import { ShowHandler, ClockIdentifier } from "./src/ShowHandler";
 import { Storage } from "./src/Storage";
 import {
     FallbackSyncClockSource,
@@ -14,6 +14,7 @@ export {
     MutableClockSource,
     ClockState,
     ShowHandler,
+    ClockIdentifier,
     Storage,
     FallbackSyncClockSource,
     getSyncClock,

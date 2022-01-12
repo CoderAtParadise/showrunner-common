@@ -22,6 +22,7 @@ export enum ClockState {
  */
 export interface ClockSource {
     readonly owner: string;
+    readonly show: string;
     readonly id: string;
     readonly type: string;
     display: string;

@@ -3,6 +3,7 @@ import { SMPTE } from "./SMPTE";
 
 export const FallbackSyncClockSource: ClockSource = {
     type: "sync",
+    show: "system",
     owner: "system",
     id: "fallback",
     display: "Sync Clock",

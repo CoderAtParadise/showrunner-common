@@ -2,8 +2,15 @@ import { ClockSource } from "./ClockSource";
 import { IProperty } from "./IProperty";
 import { Storage } from "./Storage";
 
+export interface ClockIdentifier {
+    clock: ClockSource;
+    active: boolean;
+    render: string[];
+}
+
 export interface ShowHandler {
     readonly id: string;
+    listClocks: () => ClockIdentifier[];
     getClock: (id: string) => ClockSource | undefined;
     enableClock: (id: string) => boolean;
     disableClock: (id: string) => boolean;
