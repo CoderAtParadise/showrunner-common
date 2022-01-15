@@ -62,9 +62,12 @@ export class SMPTE {
                 this.mSeconds = -1;
                 this.mFrames = -1;
             } else {
+                /* eslint-disable */
+                // no-useless-escape
                 const parts = (timecode as String).match(
-                    "^(\\+|\\-)?([012][0-9]):([0-9][0-9]):([0-9][0-9])(:|;|\\.)([0-9][0-9])$"
+                    /^(\+|\-)?([012][0-9]):([0-9][0-9]):([0-9][0-9])(:|;|\\.)([0-9][0-9]|[0-9][0-9][0-9])$/
                 );
+                /* eslint-enable */
                 if (!parts) {
                     throw new Error(
                         "Timecode string expected as (+-)HH:MM:SS:FF or (+-)HH:MM:SS;FF"
@@ -151,19 +154,34 @@ export class SMPTE {
         return this.valueOf() === this.convert(other).valueOf();
     }
 
-    add(other: SMPTE): SMPTE {
-        return new SMPTE(
-            this.valueOf() + this.convert(other).valueOf(),
-            this.frameRate(),
-            this.dropFrame()
-        );
+    add(other: SMPTE, ignoreFrames: boolean = false): SMPTE {
+        if (ignoreFrames) {
+            return new SMPTE(
+                this.valueOfExcludeFrames() +
+                    this.convert(other).valueOfExcludeFrames(),
+                this.frameRate()
+            );
+        } else {
+            return new SMPTE(
+                this.valueOf() + this.convert(other).valueOf(),
+                this.frameRate()
+            );
+        }
     }
 
-    subtract(other: SMPTE): SMPTE {
-        return new SMPTE(
-            this.valueOf() - this.convert(other).valueOf(),
-            this.frameRate()
-        );
+    subtract(other: SMPTE, ignoreFrames: boolean = false): SMPTE {
+        if (ignoreFrames) {
+            return new SMPTE(
+                this.valueOfExcludeFrames() -
+                    this.convert(other).valueOfExcludeFrames(),
+                this.frameRate()
+            );
+        } else {
+            return new SMPTE(
+                this.valueOf() - this.convert(other).valueOf(),
+                this.frameRate()
+            );
+        }
     }
 
     toString(): string {
@@ -181,6 +199,13 @@ export class SMPTE {
 
     valueOf(): number {
         return this.frameCount();
+    }
+
+    valueOfExcludeFrames(): number {
+        return (
+            (this.hours() * 3600 + this.minutes() * 60 + this.seconds()) *
+            Math.round(this.frameRate())
+        );
     }
 
     hours(): number {

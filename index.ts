@@ -7,6 +7,7 @@ import {
     getSyncClock,
     setSyncClock
 } from "./src/SyncClock";
+import { ICommand, registerCommand, executeCommand } from "./src/ICommand";
 export {
     SMPTE,
     Offset,
@@ -18,5 +19,8 @@ export {
     Storage,
     FallbackSyncClockSource,
     getSyncClock,
-    setSyncClock
+    setSyncClock,
+    ICommand,
+    registerCommand,
+    executeCommand
 };

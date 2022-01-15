@@ -27,6 +27,7 @@
                     "id": "<id>",
                     "display": "<display>",
                     "type": "timer",
+                    "renderChannel": [],
                     "direction": "<down|up>",
                     "behaviour": "<stop|hide|overrun>",
                     "duration": "<00:00:00:00>"
@@ -35,6 +36,7 @@
                   "id": "<id>",
                   "display": "<display>",
                   "type": "offset",
+                  "renderChannel": [],
                   "authority": "<id>",
                   "offset": "<(+-)00:00:00:00"
                 },
@@ -42,6 +44,7 @@
                   "id": "<id>",
                   "display": "<display>",
                   "type": "toTime",
+                  "renderChannel": [],
                   "behaviour": "<stop|hide|overrun>",
                   "time": "<00:00:00:00>"
                 }
