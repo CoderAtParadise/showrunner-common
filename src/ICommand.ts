@@ -3,7 +3,7 @@ import { ShowHandler } from "./ShowHandler";
 export interface ICommand<Data> {
     id: string;
     validate: (data?: any) => boolean;
-    run: (handler: ShowHandler, data?: Data) => void; // TODO: change handler type to actual type
+    run: (data?: Data) => boolean;
 }
 
 const CommandRegistry = new Map<string, ICommand<any>>();
@@ -13,13 +13,13 @@ export function registerCommand<Data>(command: ICommand<Data>): void {
         CommandRegistry.set(command.id, command);
 }
 
-export function executeCommand(
-    handler: ShowHandler,
-    id: string,
-    data?: any
-): boolean {
+export function commandExists(id: string): boolean {
+    return CommandRegistry.has(id);
+}
+
+export function executeCommand(id: string, data?: any): boolean {
     const command = CommandRegistry.get(id);
-    if (command && command.validate(data)) command.run(handler, data);
+    if (command && command.validate(data)) return command.run(data);
     return false;
 }
 

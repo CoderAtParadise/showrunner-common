@@ -6,8 +6,10 @@ export const FallbackSyncClockSource: ClockSource = {
     show: "system",
     owner: "system",
     id: "fallback",
-    display: "Sync Clock",
+    displayName: "Sync Clock",
     state: ClockState.RUNNING,
+    overrun: false,
+    automation: false,
     current(): SMPTE {
         return new SMPTE(new Date());
     },

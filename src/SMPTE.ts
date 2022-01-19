@@ -134,23 +134,48 @@ export class SMPTE {
         this.validate();
     }
 
-    greaterThan(other: SMPTE): boolean {
+    greaterThan(other: SMPTE, ignoreFrames: boolean = false): boolean {
+        if (ignoreFrames)
+            return (
+                this.valueOfExcludeFrames() >
+                this.convert(other).valueOfExcludeFrames()
+            );
         return this.valueOf() > this.convert(other).valueOf();
     }
 
-    greaterThanOrEqual(other: SMPTE): boolean {
+    greaterThanOrEqual(other: SMPTE, ignoreFrames: boolean = false): boolean {
+        if (ignoreFrames)
+            return (
+                this.valueOfExcludeFrames() >=
+                this.convert(other).valueOfExcludeFrames()
+            );
         return this.valueOf() >= this.convert(other).valueOf();
     }
 
-    lessThan(other: SMPTE): boolean {
+    lessThan(other: SMPTE, ignoreFrames: boolean = false): boolean {
+        if (ignoreFrames)
+            return (
+                this.valueOfExcludeFrames() <
+                this.convert(other).valueOfExcludeFrames()
+            );
         return this.valueOf() < this.convert(other).valueOf();
     }
 
-    lessThanOrEqual(other: SMPTE): boolean {
+    lessThanOrEqual(other: SMPTE, ignoreFrames: boolean = false): boolean {
+        if (ignoreFrames)
+            return (
+                this.valueOfExcludeFrames() <=
+                this.convert(other).valueOfExcludeFrames()
+            );
         return this.valueOf() <= this.convert(other).valueOf();
     }
 
-    equals(other: SMPTE): boolean {
+    equals(other: SMPTE, ignoreFrames: boolean = false): boolean {
+        if (ignoreFrames)
+            return (
+                this.valueOfExcludeFrames() ===
+                this.convert(other).valueOfExcludeFrames()
+            );
         return this.valueOf() === this.convert(other).valueOf();
     }
 
@@ -240,8 +265,9 @@ export class SMPTE {
         return this.mOffset;
     }
 
-    setOffset(offset: Offset) {
+    setOffset(offset: Offset): SMPTE {
         this.mOffset = offset;
+        return this;
     }
 
     /**

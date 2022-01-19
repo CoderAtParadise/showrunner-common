@@ -1,18 +1,12 @@
 import { ClockSource } from "./ClockSource";
 import { IProperty } from "./IProperty";
+import { ClockIdentifier, RenderChannel } from "./ClockIdentifier";
 import { Storage } from "./Storage";
-
-export interface ClockIdentifier {
-    clock: ClockSource;
-    active: boolean;
-    automation: boolean;
-    renderChannel: string[];
-}
 
 export interface ClockOptions {
     active?: boolean;
     automation?: boolean;
-    renderChannel?: string[];
+    renderChannel?: RenderChannel[];
 }
 
 export interface ShowHandler {

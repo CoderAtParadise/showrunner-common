@@ -1,18 +1,24 @@
 import { SMPTE } from "./SMPTE";
 
 export enum ClockState {
+    RESET = "reset",
     STOPPED = "stopped",
-    HIDDEN = "hidden",
     PAUSED = "paused",
-    RUNNING = "running",
-    OVERRUN = "overrun"
+    RUNNING = "running"
+}
+
+export enum ClockDirection {
+    COUNTDOWN = "countdown",
+    COUNTUP = "countup"
 }
 
 /**
  * @param owner - The owner of the ClockSource
  * @param id - The unique id
- * @param display - Readable Name
+ * @param displayName - Readable Name
  * @param state - The State currently in
+ * @param overrun - If in overrun state
+ * @param automation - If automation is allowed
  * @param current - A Callback to retrieve the current time of the clock
  * @param data - A Callback to retrive any addition data of the clock
  * @param start - A Callback to start the clock
@@ -25,14 +31,16 @@ export interface ClockSource {
     readonly show: string;
     readonly id: string;
     readonly type: string;
-    display: string;
+    displayName: string;
     state: ClockState;
+    overrun: boolean;
+    automation: boolean;
     current: () => SMPTE;
     data: () => object | undefined;
     start: () => void;
-    pause: () => void;
-    stop: () => void;
-    reset: () => void;
+    pause: (override: boolean) => void;
+    stop: (override: boolean) => void;
+    reset: (override: boolean) => void;
     update: () => void;
 }
 
