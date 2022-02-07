@@ -2,15 +2,19 @@ import { ClockSource } from "./ClockSource";
 import { IProperty } from "./IProperty";
 import { ClockIdentifier, RenderChannel } from "./ClockIdentifier";
 import { Storage } from "./Storage";
+import { History } from "./History";
 
 export interface ClockOptions {
     active?: boolean;
-    automation?: boolean;
+    configurable?: boolean;
     renderChannel?: RenderChannel[];
 }
 
 export interface ShowHandler {
     readonly id: string;
+    readonly location: string;
+    displayName: string;
+    dirty: boolean;
     listClocks: () => ClockIdentifier[];
     getClock: (id: string) => ClockSource | undefined;
     enableClock: (id: string) => boolean;
@@ -26,4 +30,8 @@ export interface ShowHandler {
     ) => IProperty<any> | undefined;
     setOverrideProperty: (property: IProperty<any>) => void;
     removeOverrideProperty: (id: string, key: string) => void;
+    history: () => History[];
+    writeHistory: (history: History) => boolean;
+    undoHistory: (id?: string) => boolean;
+    markDirty: (dirty: boolean) => void;
 }

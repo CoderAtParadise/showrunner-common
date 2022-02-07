@@ -5,7 +5,10 @@ import {
     ClockState,
     ClockDirection
 } from "./src/ClockSource";
-import { ShowHandler } from "./src/ShowHandler";
+import { ShowHandler, ClockOptions } from "./src/ShowHandler";
+import { ShowManager } from "./src/ShowManager";
+import { History } from "./src/History";
+import { IProperty } from "./src/IProperty";
 import { Storage } from "./src/Storage";
 import {
     FallbackSyncClockSource,
@@ -27,8 +30,12 @@ export {
     ClockState,
     ClockDirection,
     ShowHandler,
+    ClockOptions,
+    ShowManager,
+    History,
     RenderChannel,
     ClockIdentifier,
+    IProperty,
     Storage,
     FallbackSyncClockSource,
     getSyncClock,

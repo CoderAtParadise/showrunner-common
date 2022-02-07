@@ -1,59 +1,63 @@
 {
     "version": 1,
     "id": "<id>",
+    "autoload": {
+        "shows": ["<id>"]
+    },
     "display": "<display>",
     "shows": [
         {
             "id": "<id>",
             "session": "<id>",
-            "tracking_list": [
-                "<id>"
-            ],
-            "index": 0,
-            "overrides": [
-            ]
+            "tracking_list": ["<id>"],
+            "overrides": []
         }
     ],
-    "defaults": [
-        {
-            "id": "<id>",
-            "type": "<session|bracket|item|video|song",
-            "display": "<display>",
-            "disabled": false,
-            "save": true,
-            "index_list": ["<id>"],
-            "clocks": [
-                {
-                    "id": "<id>",
-                    "display": "<display>",
-                    "type": "timer",
-                    "renderChannel": [],
-                    "direction": "<down|up>",
-                    "behaviour": "<stop|hide|overrun>",
-                    "duration": "<00:00:00:00>"
-                },
-                {
-                  "id": "<id>",
-                  "display": "<display>",
-                  "type": "offset",
-                  "renderChannel": [],
-                  "authority": "<id>",
-                  "offset": "<(+-)00:00:00:00"
-                },
-                {
-                  "id": "<id>",
-                  "display": "<display>",
-                  "type": "toTime",
-                  "renderChannel": [],
-                  "behaviour": "<stop|hide|overrun>",
-                  "time": "<00:00:00:00>"
-                }
-            ],
-            "directions": [
-                {
-                    "on": "<self | bracket | session | <id>>:<event> <id>"
-                }
-            ]
-        }
-    ]
+    "defaults": {
+        "clocks": [],
+        "sessions": [],
+        "brackets": [],
+        "items": [
+            {
+                "id": "<id>",
+                "type": "<session|bracket|item|video|song",
+                "display": "<display>",
+                "disabled": false,
+                "save": true,
+                "index_list": ["<id>"],
+                "clocks": [
+                    {
+                        "id": "<id>",
+                        "display": "<display>",
+                        "type": "timer",
+                        "renderChannel": [],
+                        "direction": "<down|up>",
+                        "behaviour": "<stop|hide|overrun>",
+                        "duration": "<00:00:00:00>"
+                    },
+                    {
+                        "id": "<id>",
+                        "display": "<display>",
+                        "type": "offset",
+                        "renderChannel": [],
+                        "authority": "<id>",
+                        "offset": "<(+-)00:00:00:00"
+                    },
+                    {
+                        "id": "<id>",
+                        "display": "<display>",
+                        "type": "toTime",
+                        "renderChannel": [],
+                        "behaviour": "<stop|hide|overrun>",
+                        "time": "<00:00:00:00>"
+                    }
+                ],
+                "directions": [
+                    {
+                        "on": "<self | bracket | session | <id>>:<event> <id>"
+                    }
+                ]
+            }
+        ]
+    }
 }

@@ -8,6 +8,6 @@ export interface RenderChannel {
 export interface ClockIdentifier {
     clock: ClockSource;
     active: boolean;
-    automation: boolean;
+    configurable: boolean;
     renderChannel: RenderChannel[];
 }
