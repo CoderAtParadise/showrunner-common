@@ -17,8 +17,8 @@ import {
 } from "./src/SyncClock";
 import {
     ICommand,
+    CommandReturn,
     registerCommand,
-    commandExists,
     executeCommand
 } from "./src/ICommand";
 import { ClockIdentifier, RenderChannel } from "./src/ClockIdentifier";
@@ -41,7 +41,7 @@ export {
     getSyncClock,
     setSyncClock,
     ICommand,
+    CommandReturn,
     registerCommand,
-    commandExists,
     executeCommand
 };
