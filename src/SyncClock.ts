@@ -1,20 +1,22 @@
 import { ClockSource, ClockState } from "./ClockSource";
 import { SMPTE } from "./SMPTE";
 
-export const FallbackSyncClockSource: ClockSource = {
+export const FallbackSyncClockSource: ClockSource<{}> = {
     type: "sync",
-    show: "system",
+    session: "system",
     owner: "system",
     id: "fallback",
-    displayName: "Sync Clock",
+    settings: {
+        displayName: "Sync Clock"
+    },
     state: ClockState.RUNNING,
     overrun: false,
     automation: false,
     current(): SMPTE {
         return new SMPTE(new Date());
     },
-    data(): object | undefined {
-        return undefined;
+    duration(): SMPTE {
+        return new SMPTE();
     },
     start(): void {
         // NOOP
@@ -33,13 +35,13 @@ export const FallbackSyncClockSource: ClockSource = {
     }
 };
 
-let syncClock: ClockSource = FallbackSyncClockSource;
+let syncClock: ClockSource<any> = FallbackSyncClockSource;
 
-export const getSyncClock = (): ClockSource => {
+export const getSyncClock = (): ClockSource<any> => {
     return syncClock;
 };
 
-export const setSyncClock = (clock: ClockSource): void => {
+export const setSyncClock = (clock: ClockSource<any>): void => {
     syncClock = clock;
 };
 

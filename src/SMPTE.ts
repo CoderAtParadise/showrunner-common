@@ -135,47 +135,52 @@ export class SMPTE {
     }
 
     greaterThan(other: SMPTE, ignoreFrames: boolean = false): boolean {
-        if (ignoreFrames)
+        if (ignoreFrames) {
             return (
                 this.valueOfExcludeFrames() >
                 this.convert(other).valueOfExcludeFrames()
             );
+        }
         return this.valueOf() > this.convert(other).valueOf();
     }
 
     greaterThanOrEqual(other: SMPTE, ignoreFrames: boolean = false): boolean {
-        if (ignoreFrames)
+        if (ignoreFrames) {
             return (
                 this.valueOfExcludeFrames() >=
                 this.convert(other).valueOfExcludeFrames()
             );
+        }
         return this.valueOf() >= this.convert(other).valueOf();
     }
 
     lessThan(other: SMPTE, ignoreFrames: boolean = false): boolean {
-        if (ignoreFrames)
+        if (ignoreFrames) {
             return (
                 this.valueOfExcludeFrames() <
                 this.convert(other).valueOfExcludeFrames()
             );
+        }
         return this.valueOf() < this.convert(other).valueOf();
     }
 
     lessThanOrEqual(other: SMPTE, ignoreFrames: boolean = false): boolean {
-        if (ignoreFrames)
+        if (ignoreFrames) {
             return (
                 this.valueOfExcludeFrames() <=
                 this.convert(other).valueOfExcludeFrames()
             );
+        }
         return this.valueOf() <= this.convert(other).valueOf();
     }
 
     equals(other: SMPTE, ignoreFrames: boolean = false): boolean {
-        if (ignoreFrames)
+        if (ignoreFrames) {
             return (
                 this.valueOfExcludeFrames() ===
                 this.convert(other).valueOfExcludeFrames()
             );
+        }
         return this.valueOf() === this.convert(other).valueOf();
     }
 

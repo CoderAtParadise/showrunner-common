@@ -1,5 +1,3 @@
-import { ShowHandler } from "./ShowHandler";
-
 export interface CommandReturn {
     status: number;
     error?: string;
@@ -24,7 +22,7 @@ export function executeCommand(id: string, data?: any): CommandReturn {
     if (command) {
         const valid = command.validate(data);
         if (valid !== undefined) return valid;
-            return command.run(data);
+        return command.run(data);
     }
     return {
         status: 404,

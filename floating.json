@@ -1,0 +1,6 @@
+{
+    "id": "<id>",
+    "disabled": false,
+    "display": "<display>",
+    "tracking": ["<bracket:id>","<bracket:id>"]
+}

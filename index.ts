@@ -5,11 +5,9 @@ import {
     ClockState,
     ClockDirection
 } from "./src/ClockSource";
-import { ShowHandler, ClockOptions } from "./src/ShowHandler";
+import { ShowHandler } from "./src/ShowHandler";
 import { ShowManager } from "./src/ShowManager";
 import { History } from "./src/History";
-import { IProperty } from "./src/IProperty";
-import { Storage } from "./src/Storage";
 import {
     FallbackSyncClockSource,
     getSyncClock,
@@ -21,7 +19,6 @@ import {
     registerCommand,
     executeCommand
 } from "./src/ICommand";
-import { ClockIdentifier, RenderChannel } from "./src/ClockIdentifier";
 export {
     SMPTE,
     Offset,
@@ -30,13 +27,8 @@ export {
     ClockState,
     ClockDirection,
     ShowHandler,
-    ClockOptions,
     ShowManager,
     History,
-    RenderChannel,
-    ClockIdentifier,
-    IProperty,
-    Storage,
     FallbackSyncClockSource,
     getSyncClock,
     setSyncClock,
