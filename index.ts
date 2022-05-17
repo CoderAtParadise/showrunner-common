@@ -3,11 +3,13 @@ import {
     ClockSource,
     MutableClockSource,
     ClockState,
-    ClockDirection
+    ClockDirection,
+    BaseClockSettings,
+    ClockIdentifier
 } from "./src/ClockSource";
 import { ShowHandler } from "./src/ShowHandler";
 import { ShowManager } from "./src/ShowManager";
-import { History } from "./src/History";
+import { History } from "./src/history/History";
 import {
     FallbackSyncClockSource,
     getSyncClock,
@@ -19,9 +21,18 @@ import {
     registerCommand,
     executeCommand
 } from "./src/ICommand";
+import {
+    Codec,
+    serializeTypes,
+    DefaultCodec,
+    NumberCodec,
+    StringCodec
+} from "./src/codec";
 export {
     SMPTE,
     Offset,
+    ClockIdentifier,
+    BaseClockSettings,
     ClockSource,
     MutableClockSource,
     ClockState,
@@ -35,5 +46,10 @@ export {
     ICommand,
     CommandReturn,
     registerCommand,
-    executeCommand
+    executeCommand,
+    Codec,
+    serializeTypes,
+    DefaultCodec,
+    NumberCodec,
+    StringCodec
 };

@@ -3,15 +3,18 @@ import { SMPTE } from "./SMPTE";
 
 export const FallbackSyncClockSource: ClockSource<{}> = {
     type: "sync",
-    session: "system",
-    owner: "system",
-    id: "fallback",
+    identifier: {
+        owner: "system",
+        id: "fallback",
+        show: "system",
+        session: "system"
+    },
     settings: {
-        displayName: "Sync Clock"
+        displayName: "Sync Clock",
+        automation: false
     },
     state: ClockState.RUNNING,
     overrun: false,
-    automation: false,
     current(): SMPTE {
         return new SMPTE(new Date());
     },

@@ -12,15 +12,24 @@ export enum ClockDirection {
     COUNTUP = "countup"
 }
 
+export interface BaseClockSettings {
+    displayName: string;
+    automation: boolean;
+}
+
+export interface ClockIdentifier {
+    id:string;
+    owner:string;
+    show:string;
+    session:string;
+}
+
 /**
- * @param owner - The owner of the ClockSource
- * @param show - The show of the ClockSource
- * @param id - The unique id
+ * @param identifier - The unique id
  * @param type - The ClockSource type
  * @param settings - Configurable settings
  * @param state - The State currently in
  * @param overrun - If in overrun state
- * @param automation - If automation is allowed
  * @param current - A Callback to retrieve the current time of the clock
  * @param data - A Callback to retrive any addition data of the clock
  * @param start - A Callback to start the clock
@@ -29,14 +38,11 @@ export enum ClockDirection {
  * @param reset - A Callback to reset the clock
  */
 export interface ClockSource<Settings> {
-    readonly owner: string;
-    readonly session: string;
-    readonly id: string;
+    readonly identifier: ClockIdentifier;
     readonly type: string;
-    settings: { displayName: string } & Settings;
+    settings: BaseClockSettings & Settings;
     state: ClockState;
     overrun: boolean;
-    automation: boolean;
     displayName?: () => string;
     current: () => SMPTE;
     duration: () => SMPTE;
