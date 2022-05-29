@@ -25,6 +25,9 @@ export const FallbackSyncClockSource: ClockSource<{}> = {
     start(): void {
         // NOOP
     },
+    setTime() {
+
+    },
     pause(): void {
         // NOOP
     },

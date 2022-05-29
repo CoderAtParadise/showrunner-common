@@ -49,6 +49,7 @@ export interface ClockSource<Settings> {
     duration: () => SMPTE;
     data?: () => object;
     start: () => void;
+    setTime: (time: SMPTE) => void;
     pause: (override: boolean) => void;
     stop: (override: boolean) => void;
     reset: (override: boolean) => void;
