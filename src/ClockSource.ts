@@ -43,6 +43,7 @@ export interface ClockSource<Settings> {
     settings: BaseClockSettings & Settings;
     state: ClockState;
     overrun: boolean;
+    incorrectFramerate: boolean;
     displayName?: () => string;
     current: () => SMPTE;
     duration: () => SMPTE;

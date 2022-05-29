@@ -15,6 +15,7 @@ export const FallbackSyncClockSource: ClockSource<{}> = {
     },
     state: ClockState.RUNNING,
     overrun: false,
+    incorrectFramerate: false,
     current(): SMPTE {
         return new SMPTE(new Date());
     },
