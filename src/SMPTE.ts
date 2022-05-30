@@ -326,7 +326,7 @@ export class SMPTE {
     }
 
     private calculateFrameCount(): void {
-        if (this.frames() > this.frameRate()) {
+        if (this.frames() >= this.frameRate()) {
             this.mFrames = this.frameRate() - 1;
             this.mIncorrectFramerate = true;
         }
@@ -373,7 +373,7 @@ export class SMPTE {
             this.hours() > 23 ||
             this.minutes() > 59 ||
             this.seconds() > 59 ||
-            this.frames() >= this.frameRate()
+            (!this.isIncorrectFramerate() && this.frames() >= this.frameRate())
         )
             throw new Error("Invalid timecode " + JSON.stringify(this));
     }
