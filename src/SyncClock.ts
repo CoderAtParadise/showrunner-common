@@ -15,7 +15,9 @@ export const FallbackSyncClockSource: ClockSource<{}> = {
     },
     state: ClockState.RUNNING,
     overrun: false,
-    incorrectFramerate: false,
+    incorrectFramerate(): boolean {
+        return false;
+    },
     current(): SMPTE {
         return new SMPTE(new Date());
     },
@@ -26,7 +28,7 @@ export const FallbackSyncClockSource: ClockSource<{}> = {
         // NOOP
     },
     setTime() {
-
+        // NOOP
     },
     pause(): void {
         // NOOP

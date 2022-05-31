@@ -18,10 +18,10 @@ export interface BaseClockSettings {
 }
 
 export interface ClockIdentifier {
-    id:string;
-    owner:string;
-    show:string;
-    session:string;
+    id: string;
+    owner: string;
+    show: string;
+    session: string;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface ClockSource<Settings> {
     settings: BaseClockSettings & Settings;
     state: ClockState;
     overrun: boolean;
-    incorrectFramerate: boolean;
+    incorrectFramerate(): boolean;
     displayName?: () => string;
     current: () => SMPTE;
     duration: () => SMPTE;
