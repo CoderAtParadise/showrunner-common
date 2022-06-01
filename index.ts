@@ -1,4 +1,4 @@
-import { SMPTE, Offset } from "./src/SMPTE";
+import { SMPTE, Offset, Framerate } from "./src/SMPTE";
 import {
     ClockSource,
     MutableClockSource,
@@ -31,6 +31,7 @@ import {
 export {
     SMPTE,
     Offset,
+    Framerate,
     ClockIdentifier,
     BaseClockSettings,
     ClockSource,
