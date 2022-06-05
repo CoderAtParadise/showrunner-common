@@ -20,7 +20,7 @@
         "types": "/index.d.js"
     },
     "files": [
-        "dist/**/*"
+        "lib/"
     ],
     "devDependencies": {
         "@types/eslint": "^8",
