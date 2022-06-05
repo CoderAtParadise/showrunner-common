@@ -14,11 +14,6 @@
     },
     "repository": "https://github.com/CoderAtParadise/showrunner-common.git",
     "author": "CoderAtParadise <dawn0966@gmail.com>",
-    "publishConfig": {
-        "access": "public",
-        "main": "/index.js",
-        "types": "/index.d.js"
-    },
     "files": [
         "lib/"
     ],
