@@ -12,27 +12,15 @@ jobs:
       packages: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       #Setup .npmrc file to publish to GitHub Packages
       - name: Setup Node 16
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@coderatparadise'
-      - name: Use yarn Zero Install Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-             ${{ runner.os }}-yarn-
-      - run: |
-          echo '::echo::on'
-          echo "::set-output name=scope::$(yarn config get npmScopes)"
+          cache: 'yarn'
       - name: Setup .yarnrc.yml
         run: |
             yarn config set npmScopes.coderatparadise.npmAuthToken $NODE_AUTH_TOKEN

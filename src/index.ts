@@ -1,4 +1,4 @@
-import { SMPTE, Offset, Framerate } from "./src/SMPTE";
+import { SMPTE, Offset, Framerate } from "./SMPTE";
 import {
     ClockSource,
     MutableClockSource,
@@ -6,28 +6,28 @@ import {
     ClockDirection,
     BaseClockSettings,
     ClockIdentifier
-} from "./src/ClockSource";
-import { ShowHandler } from "./src/ShowHandler";
-import { ShowManager } from "./src/ShowManager";
-import { History } from "./src/history/History";
+} from "./ClockSource";
+import { ShowHandler } from "./ShowHandler";
+import { ShowManager } from "./ShowManager";
+import { History } from "./history/History";
 import {
     FallbackSyncClockSource,
     getSyncClock,
     setSyncClock
-} from "./src/SyncClock";
+} from "./SyncClock";
 import {
     ICommand,
     CommandReturn,
     registerCommand,
     executeCommand
-} from "./src/ICommand";
+} from "./ICommand";
 import {
     Codec,
     serializeTypes,
     DefaultCodec,
     NumberCodec,
     StringCodec
-} from "./src/codec";
+} from "./codec";
 export {
     SMPTE,
     Offset,

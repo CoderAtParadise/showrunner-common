@@ -1,16 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "esnext",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "lib": ["esnext"],
-      "rootDir": "./",
-      "outDir": "./dist",
-      "esModuleInterop": true,
-      "strict": true,
-      "declaration": true
-    },
-    "files": ["index.ts"],
-    "include": ["src/**/*" ]
-  }
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ES2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./lib/esm",
+    "moduleResolution": "node",
+    "declaration": true
+  },
+  "include": [
+    "./src"
+, "src/index.ts"  ]
+}

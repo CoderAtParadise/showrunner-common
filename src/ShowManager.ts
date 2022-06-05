@@ -1,4 +1,4 @@
-import { ShowHandler } from "..";
+import { ShowHandler } from "./ShowHandler";
 
 export interface ShowManager {
     registerShow(show: ShowHandler): void;
